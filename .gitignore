@@ -1,0 +1,28 @@
+# 数据集与大文件排除
+Straw6D_Raw/
+Straw6D_Upload/
+*.zip
+*.7z
+*.rar
+
+# 模型权重（通常较大且 GitHub 有 100MB 限制）
+# 如果您的权重文件 darknet_strawberry_checkpoint.pth 确实需要上传且小于 100MB，可以手动在下面去掉对 *.pth 的限制
+*.pth
+*.h5
+
+# 前端依赖与构建
+frontend/node_modules/
+frontend/dist/
+
+# Python 环境与缓存
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+.venv/
+env/
+venv/
+
+# 系统临时文件
+.DS_Store
+Thumbs.db
