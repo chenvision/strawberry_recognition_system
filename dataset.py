@@ -83,146 +83,108 @@ class Straw6DDataset(Dataset):
     def __getitem__(self, idx):
         """
         获取一个样本。
-        
+
         返回:
             image_tensor (Tensor): [3, 600, 800], RGB, 归一化 [0, 1]
-            targets (Tensor): [N, 22], 其中 N 是该图片中草莓的数量。
-                              如果图片中没有草莓，返回 [0, 22] 的空 Tensor。
-                              22 维向量定义:
-                              - [0:2]: 2D 中心点 (u, v)
-                              - [2:18]: 16D 顶点偏移 (8个顶点相对于中心的偏移 du, dv)
-                              - [18:21]: 3D 尺寸 (w, h, l)
-                              - [21]: 置信度 (1.0)
+            target_tensor (Tensor): [22, 18, 25], Grid-based 标签。
+                每个有目标的 Grid Cell 存储 22 维向量:
+                - [0:2]:  2D 中心点绝对像素坐标 (u, v)
+                - [2:18]: 16D 顶点偏移 (8个顶点相对于中心的 du, dv)
+                - [18:21]: 3D 尺寸 (w, h, l)，单位米
+                - [21]:   置信度 (1.0)
         """
         img_name = self.image_files[idx]
         img_path = os.path.join(self.image_dir, img_name)
         box_path = os.path.join(self.box_dir, img_name.replace('.png', '.csv'))
 
-        # 1. 读取图像 (OpenCV 读取为 BGR)
+        # 1. 读取图像
         image = cv2.imread(img_path)
         if image is None:
-             raise FileNotFoundError(f"Image not found: {img_path}")
-        
-        # 2. BGR 转 RGB
+            raise FileNotFoundError(f"Image not found: {img_path}")
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        
-        # 3. 转为 PIL Image (为了使用 torchvision transforms)
         image_pil = Image.fromarray(image)
-
-        # 4. 应用变换 (Resize -> ColorJitter -> ToTensor)
         image_tensor = self.transform(image_pil)
-        
-        # 5. 解析 CSV 标签
-        targets = []
+
+        # 2. 初始化 Grid Target Tensor [22, 18, 25]，全零表示无目标
+        grid_h, grid_w = 18, 25
+        target_tensor = torch.zeros((22, grid_h, grid_w), dtype=torch.float32)
+
+        # 3. 解析 CSV 标签，将每个目标映射到对应 Grid Cell
         if os.path.exists(box_path):
             with open(box_path, 'r') as f:
                 reader = csv.reader(f)
-                header = next(reader) # 跳过表头
-                
-                for row in reader:
-                    if not row: continue
-                    
-                    # 读取参数
-                    label = float(row[0])
-                    x, y, z = float(row[1]), float(row[2]), float(row[3])
-                    w, h, l = float(row[4]), float(row[5]), float(row[6])
-                    roll, pitch, yaw = float(row[7]), float(row[8]), float(row[9])
+                try:
+                    next(reader)  # 跳过表头
+                except StopIteration:
+                    pass
 
-                    # 计算 3D 旋转矩阵
+                for row in reader:
+                    if not row:
+                        continue
+                    try:
+                        x, y, z = float(row[1]), float(row[2]), float(row[3])
+                        w, h, l = float(row[4]), float(row[5]), float(row[6])
+                        roll, pitch, yaw = float(row[7]), float(row[8]), float(row[9])
+                    except (ValueError, IndexError):
+                        continue
+
                     R = self.euler_to_rotation_matrix(roll, pitch, yaw)
 
-                    # 定义 3D 边界框的 8 个顶点 + 中心点(0,0,0)
-                    # 顺序参考 view_dataset.py
                     x_corners = [w/2, -w/2, -w/2, w/2, w/2, -w/2, -w/2, w/2, 0]
-                    y_corners = [h/2, h/2, h/2, h/2, -h/2, -h/2, -h/2, -h/2, 0]
-                    z_corners = [l/2, l/2, -l/2, -l/2, l/2, l/2, -l/2, -l/2, 0]
-
+                    y_corners = [h/2,  h/2,  h/2, h/2, -h/2, -h/2, -h/2, -h/2, 0]
+                    z_corners = [l/2,  l/2, -l/2, -l/2, l/2,  l/2, -l/2, -l/2, 0]
                     corners = np.array([x_corners, y_corners, z_corners], dtype=np.float32)
-                    
-                    # 变换到世界坐标系: P_world = R * P_local + T
-                    corners_3d = np.dot(R, corners) + np.array([x, y, z], dtype=np.float32).reshape(3, 1)
-                    corners_3d = corners_3d.transpose(1, 0) # [9, 3]
+                    corners_3d = (np.dot(R, corners)
+                                  + np.array([x, y, z], dtype=np.float32).reshape(3, 1))
+                    corners_3d = corners_3d.transpose(1, 0)  # [9, 3]
 
-                    # 投影到 2D 图像平面
                     pts_2d = []
                     for i in range(9):
-                        # 坐标系转换: World -> Camera (X=X, Y=-Y, Z=-Z)
                         X_cam = corners_3d[i][0]
                         Y_cam = -corners_3d[i][1]
                         Z_cam = -corners_3d[i][2]
-                        
-                        # 投影公式
                         if abs(Z_cam) < 1e-6:
-                            u, v = 0, 0
+                            u, v = 0.0, 0.0
                         else:
                             u = self.fx * X_cam / Z_cam + self.cx
                             v = self.fy * Y_cam / Z_cam + self.cy
-                        
                         pts_2d.append([u, v])
-                    
-                    # 提取中心点 (第9个点)
+
                     center_u, center_v = pts_2d[8]
-                    
-                    # 简单的可见性检查 (如果在图像外太远可能需要过滤，这里暂不过滤，或者只过滤中心点)
+
+                    # 中心点不在图像内则跳过
                     if not (0 <= center_u < 800 and 0 <= center_v < 600):
                         continue
 
+                    # --- Grid 映射（与 kaggle_train.py 保持一致，步长 32）---
+                    gx = int(center_u / 32)
+                    gy = int(center_v / 32)
+                    gx = min(max(gx, 0), grid_w - 1)
+                    gy = min(max(gy, 0), grid_h - 1)
+
                     # 构建 22 维向量
-                    # 1. 中心点 (2)
-                    vec_center = [center_u, center_v]
-                    
-                    # 2. 顶点偏移 (16): 顶点坐标 - 中心点坐标
+                    vec_center  = [center_u, center_v]
                     vec_offsets = []
                     for i in range(8):
-                        du = pts_2d[i][0] - center_u
-                        dv = pts_2d[i][1] - center_v
-                        vec_offsets.extend([du, dv])
-                    
-                    # 3. 尺寸 (3)
+                        vec_offsets.extend([pts_2d[i][0] - center_u,
+                                            pts_2d[i][1] - center_v])
                     vec_dims = [w, h, l]
-                    
-                    # 4. 置信度 (1)
                     vec_conf = [1.0]
-                    
-                    # 拼接
-                    target = vec_center + vec_offsets + vec_dims + vec_conf
-                    targets.append(target)
 
-        # 转为 Tensor
-        if len(targets) == 0:
-            targets_tensor = torch.zeros((0, 22), dtype=torch.float32)
-        else:
-            targets_tensor = torch.tensor(targets, dtype=torch.float32)
+                    target_vec = vec_center + vec_offsets + vec_dims + vec_conf
+                    # 同一格子有多个目标时后者覆盖前者（YOLOv1 风格）
+                    target_tensor[:, gy, gx] = torch.tensor(target_vec, dtype=torch.float32)
 
-        return image_tensor, targets_tensor
-
-# 自定义 collate_fn 示例 (用于 DataLoader)
-def straw6d_collate_fn(batch):
-    """
-    处理变长 targets 的 collate_fn。
-    batch: list of (image, targets) tuples
-    """
-    images = []
-    targets = []
-    for img, target in batch:
-        images.append(img)
-        targets.append(target)
-    
-    # 将图像堆叠为一个 batch [B, 3, 600, 800]
-    images = torch.stack(images, dim=0)
-    
-    # targets 保持为列表，因为每个样本的目标数量不同 [B, N_i, 22]
-    # 或者可以设计为 padded tensor
-    return images, targets
+        return image_tensor, target_tensor
 
 if __name__ == '__main__':
-    # 测试代码
+    # 快速验证：检查 Dataset 输出形状是否符合预期
     dataset = Straw6DDataset(root_dir=r'd:\HELLO\huggingface\bishe\Straw6D_Raw')
     print(f"数据集样本数: {len(dataset)}")
-    
+
     if len(dataset) > 0:
         img, tgt = dataset[0]
-        print(f"图像 Tensor 形状: {img.shape}")
-        print(f"目标 Tensor 形状: {tgt.shape}")
-        if tgt.shape[0] > 0:
-            print(f"第一个目标向量 (前5维): {tgt[0][:5]}")
+        print(f"图像 Tensor 形状: {img.shape}")   # 期望 [3, 600, 800]
+        print(f"标签 Tensor 形状: {tgt.shape}")   # 期望 [22, 18, 25]
+        num_obj = int((tgt[21] > 0).sum().item())
+        print(f"该样本中有目标的 Grid Cell 数量: {num_obj}")

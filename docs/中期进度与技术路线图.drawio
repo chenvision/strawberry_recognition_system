@@ -1,0 +1,97 @@
+<mxfile host="65bd71144e">
+    <diagram id="progress-roadmap" name="Midterm Progress Roadmap">
+        <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                
+                <mxCell id="pt" value="毕业论文中期研究进度看板 (Midterm Research Status &amp; Roadmap)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="40" width="650" height="40" as="geometry"/>
+                </mxCell>
+
+                <!-- Status 1: Completed -->
+                <mxCell id="sc" value="&lt;b&gt;已完成工作 (Completed)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;startSize=30;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="110" width="300" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="sc1" value="Straw6D 数据集预处理与网格编码逻辑" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sc">
+                    <mxGeometry x="10" y="50" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sc1-chk" value="[✔]" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#008a00;fontStyle=1" vertex="1" parent="sc1">
+                    <mxGeometry x="240" y="0" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sc2" value="改进型 CNN-Transformer 混合模型构建" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sc">
+                    <mxGeometry x="10" y="100" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sc2-chk" value="[✔]" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#008a00;fontStyle=1" vertex="1" parent="sc2">
+                    <mxGeometry x="240" y="0" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sc3" value="300 Epoch 模型密集训练 (Loss=6.47)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sc">
+                    <mxGeometry x="10" y="150" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sc3-chk" value="[✔]" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#008a00;fontStyle=1" vertex="1" parent="sc3">
+                    <mxGeometry x="240" y="0" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sc4" value="基于 FastAPI+Vue.js 的可视化系统集成" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sc">
+                    <mxGeometry x="10" y="200" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sc4-chk" value="[✔]" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#008a00;fontStyle=1" vertex="1" parent="sc4">
+                    <mxGeometry x="240" y="0" width="40" height="40" as="geometry"/>
+                </mxCell>
+
+                <!-- Status 2: In Progress -->
+                <mxCell id="sp" value="&lt;b&gt;正在进行 (In Progress)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;startSize=30;" vertex="1" parent="1">
+                    <mxGeometry x="430" y="110" width="300" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="sp1" value="复杂果园环境下的误差来源深度分析" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sp">
+                    <mxGeometry x="10" y="50" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sp1-chk" value="[⏳]" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#d6b656;fontStyle=1" vertex="1" parent="sp1">
+                    <mxGeometry x="240" y="0" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sp2" value="嵌入式实时推理性能优化 (FPS)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sp">
+                    <mxGeometry x="10" y="100" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sp3" value="论文“总体方案”与“模型架构”章节起草" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sp">
+                    <mxGeometry x="10" y="150" width="280" height="40" as="geometry"/>
+                </mxCell>
+
+                <!-- Status 3: Future -->
+                <mxCell id="sf" value="&lt;b&gt;后续计划 (Next Steps)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;startSize=30;" vertex="1" parent="1">
+                    <mxGeometry x="780" y="110" width="300" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="sf1" value="单阶段法与双阶段法对比实验 (MAE/FPS)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sf">
+                    <mxGeometry x="10" y="50" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sf2" value="录制实地检测演示视频" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sf">
+                    <mxGeometry x="10" y="100" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sf3" value="毕业论文定稿与盲审准备" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;spacingLeft=10;" vertex="1" parent="sf">
+                    <mxGeometry x="10" y="150" width="280" height="40" as="geometry"/>
+                </mxCell>
+
+                <!-- Timeline Bar -->
+                <mxCell id="tl" value="2025.10 (选题)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="470" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl2" value="2026.04 (中期)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="530" y="470" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl3" value="2026.06 (毕业答辩)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="470" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl-line" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="180" y="480" as="sourcePoint"/>
+                        <mxPoint x="530" y="480" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="tl-line2" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=2;dashed=1;strokeColor=#b85450;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="630" y="480" as="sourcePoint"/>
+                        <mxPoint x="980" y="480" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

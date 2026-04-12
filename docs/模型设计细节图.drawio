@@ -1,0 +1,67 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16">
+  <diagram id="model-detail" name="Model Architecture Detail">
+    <mxGraphModel dx="1221" dy="871" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="改进型 CNN-Transformer 混合模型内部细节 (Model Micro-Architecture)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="300" y="40" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g1" value="Backbone: Darknet-19" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="80" y="120" width="220" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" value="Conv 3x3 (Stride 1)&lt;br&gt;+ MaxPool (Stride 2)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" parent="g1" vertex="1">
+          <mxGeometry x="20" y="40" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="m2" value="..." style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="g1" vertex="1">
+          <mxGeometry x="80" y="90" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="m3" value="Block 5 (18 × 25 × 512)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" parent="g1" vertex="1">
+          <mxGeometry x="20" y="120" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="m4" value="Block 6 (18 × 25 × 1024)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" parent="g1" vertex="1">
+          <mxGeometry x="20" y="200" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="m5" value="1 × 1 Conv Reduction" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" parent="g1" vertex="1">
+          <mxGeometry x="20" y="250" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g2" value="Neck: Transformer Encoder" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="400" y="120" width="280" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" value="Sequence Serialization (N=450)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;" parent="g2" vertex="1">
+          <mxGeometry x="40" y="40" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" value="Multi-Head Self-Attention&lt;br&gt;&lt;i&gt;Softmax(QK^T / √d)V&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;" parent="g2" vertex="1">
+          <mxGeometry x="40" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="LayerNorm &amp; MLP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;" parent="g2" vertex="1">
+          <mxGeometry x="40" y="200" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="Spatial Reshape (18 × 25 × 256)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;" parent="g2" vertex="1">
+          <mxGeometry x="40" y="250" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g3" value="Head: Prediction Head" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="780" y="120" width="240" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="h1" value="1 × 1 Conv (Output=22)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;" parent="g3" vertex="1">
+          <mxGeometry x="30" y="40" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h2" value="Output Vector Logic:&lt;br&gt;[u, v, Δp1..8, l, w, h, s]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;" parent="g3" vertex="1">
+          <mxGeometry x="30" y="100" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="g1" target="g2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="g2" target="g3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="not1" value="&lt;b&gt;CNN&lt;/b&gt;: 提供局部纹理与低级语义特征" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="80" y="430" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="not2" value="&lt;b&gt;Transformer&lt;/b&gt;: 建模网格间长程依赖，增强重叠目标辨识度" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="400" y="430" width="300" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

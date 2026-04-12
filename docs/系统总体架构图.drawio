@@ -1,0 +1,52 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16">
+  <diagram id="overall-arch" name="System Overall Architecture">
+    <mxGraphModel dx="1221" dy="871" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;dashed=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="1120" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="title" value="草莓三维位姿与尺寸估计系统：总体逻辑架构 (System Pipeline Overview)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+          <mxGeometry x="280" y="60" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="input" value="&lt;b&gt;图像输入层&lt;/b&gt;&lt;br&gt;Input Image&lt;br&gt;(800 × 600 RGB)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="70" y="200" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="backbone" value="&lt;b&gt;特征提取层 (Backbone)&lt;/b&gt;&lt;br&gt;Darknet-19 CNN&lt;br&gt;(局部特征提取)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="250" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="input" target="backbone" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="neck" value="&lt;b&gt;全局增强层 (Neck)&lt;/b&gt;&lt;br&gt;Transformer Encoder&lt;br&gt;(Self-Attention 建模)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="450" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="backbone" target="neck" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="head" value="&lt;b&gt;多任务预测层 (Head)&lt;/b&gt;&lt;br&gt;18 × 25 Grid Head&lt;br&gt;(22-Dim Vector)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="650" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="neck" target="head" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pnp" value="&lt;b&gt;几何解算层&lt;/b&gt;&lt;br&gt;EPnP Algorithm&lt;br&gt;(2D-3D Mapping)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="850" y="200" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="head" target="pnp" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="output" value="&lt;b&gt;结果输出层&lt;/b&gt;&lt;br&gt;6D Pose &amp; Size&lt;br&gt;(x, y, z, R, L, W, H)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="1030" y="190" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" parent="1" source="pnp" target="output" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="desc" value="1. 预处理与特征压缩 &amp;nbsp; &amp;nbsp; 2. 全局位置关联增强 &amp;nbsp; &amp;nbsp; 3. 网格化端到端回归 &amp;nbsp; &amp;nbsp; 4. 几何投影逆运算" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="250" y="300" width="600" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

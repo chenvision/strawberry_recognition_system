@@ -1,22 +1,25 @@
-import cv2
+﻿import cv2
 import torch
 import numpy as np
 import uvicorn
 import base64
 import math
+import csv
+from pathlib import Path
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from torchvision import transforms
 from PIL import Image
 from io import BytesIO
 
-# 导入模型定义 (确保路径正确，models/darknet.py 存在)
+# 瀵煎叆妯″瀷瀹氫箟 (纭繚璺緞姝ｇ‘锛宮odels/darknet.py 瀛樺湪)
 from models.darknet import Darknet
 
-# --- 1. 初始化 FastAPI 应用 ---
+# --- 1. 鍒濆鍖?FastAPI 搴旂敤 ---
 app = FastAPI(title="Strawberry 6D Pose Estimation API")
 
-# --- 2. 配置 CORS 跨域 ---
+# --- 2. 閰嶇疆 CORS 璺ㄥ煙 ---
 origins = [
     "http://localhost",
     "http://localhost:8080",
@@ -34,7 +37,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- 3. 加载模型与权重 ---
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEMO_FRAME_DIR = PROJECT_ROOT / "data" / "Straw6D_Raw" / "colored_maps"
+DEMO_BOX_DIR = PROJECT_ROOT / "data" / "Straw6D_Raw" / "boxes"
+
+if DEMO_FRAME_DIR.exists():
+    app.mount("/demo-data", StaticFiles(directory=str(DEMO_FRAME_DIR)), name="demo-data")
+
+# --- 3. 鍔犺浇妯″瀷涓庢潈閲?---
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_PATH = "darknet_strawberry.pth"
 
@@ -44,25 +54,25 @@ model = Darknet().to(DEVICE)
 
 checkpoint_path = 'darknet_strawberry_checkpoint.pth'
 if os.path.exists(checkpoint_path):
-    print(f"!!! 正在加载模型权重: {checkpoint_path} !!!")
+    print(f"Loading model weights from: {checkpoint_path}")
     try:
-        # 必须使用 strict=False 以防万一，但要捕获是否成功
+        # 蹇呴』浣跨敤 strict=False 浠ラ槻涓囦竴锛屼絾瑕佹崟鑾锋槸鍚︽垚鍔?
         model.load_state_dict(torch.load(checkpoint_path, map_location=DEVICE), strict=False)
-        print("✅ 权重加载成功！")
+        print("Model weights loaded successfully.")
     except Exception as e:
-        print(f"❌ 权重加载失败: {e}")
+        print(f"Model weight loading failed: {e}")
 else:
-    print("❌ 找不到权重文件，模型正在使用随机初始化的垃圾参数！！")
+    print("Model weights not found, using randomly initialized parameters.")
 
 model.eval()
 
-# --- 4. 定义图像预处理 ---
+# --- 4. 瀹氫箟鍥惧儚棰勫鐞?---
 transform = transforms.Compose([
     transforms.Resize((600, 800)),
     transforms.ToTensor(),
 ])
 
-# --- 5. 相机内参 ---
+# --- 5. 鐩告満鍐呭弬 ---
 FX = 400.32
 FY = 400.32
 CX = 400.0
@@ -75,17 +85,29 @@ K = np.array([
 ], dtype=np.float32)
 
 DIST_COEFFS = np.zeros((4, 1))
+BOX_DRAW_EDGES = [
+    (0, 1), (1, 2), (2, 3), (3, 0),
+    (4, 5), (5, 6), (6, 7), (7, 4),
+    (0, 4), (1, 5), (2, 6), (3, 7),
+]
+DEMO_COLORS = [
+    (0, 255, 0),
+    (0, 200, 255),
+    (255, 160, 0),
+    (255, 0, 180),
+    (80, 220, 255),
+]
 
-# --- 6. 辅助函数: NMS ---
+# --- 6. 杈呭姪鍑芥暟: NMS ---
 def nms(predictions, dist_threshold=40.0):
     """
-    基于欧氏距离的 NMS (Non-Maximum Suppression)
-    dist_threshold: 两个目标中心点距离小于此值视为重叠
+    鍩轰簬娆ф皬璺濈鐨?NMS (Non-Maximum Suppression)
+    dist_threshold: 涓や釜鐩爣涓績鐐硅窛绂诲皬浜庢鍊艰涓洪噸鍙?
     """
     if not predictions:
         return []
     
-    # 按置信度从高到低排序
+    # 鎸夌疆淇″害浠庨珮鍒颁綆鎺掑簭
     predictions.sort(key=lambda x: x['confidence'], reverse=True)
     
     keep = []
@@ -93,10 +115,10 @@ def nms(predictions, dist_threshold=40.0):
         best = predictions.pop(0)
         keep.append(best)
         
-        # 移除与当前 best 距离过近的目标
+        # 绉婚櫎涓庡綋鍓?best 璺濈杩囪繎鐨勭洰鏍?
         filtered_preds = []
         for p in predictions:
-            # 计算欧氏距离
+            # 璁＄畻娆ф皬璺濈
             dist = math.hypot(best['center_2d'][0] - p['center_2d'][0], 
                               best['center_2d'][1] - p['center_2d'][1])
             if dist > dist_threshold:
@@ -105,85 +127,250 @@ def nms(predictions, dist_threshold=40.0):
         
     return keep
 
-# --- 7. 核心推理函数 (抽离以便复用) ---
+
+def euler_to_rotation(theta):
+    rx, ry, rz = theta
+
+    rot_x = np.array([
+        [1, 0, 0],
+        [0, np.cos(rx), -np.sin(rx)],
+        [0, np.sin(rx), np.cos(rx)]
+    ], dtype=np.float32)
+    rot_y = np.array([
+        [np.cos(ry), 0, np.sin(ry)],
+        [0, 1, 0],
+        [-np.sin(ry), 0, np.cos(ry)]
+    ], dtype=np.float32)
+    rot_z = np.array([
+        [np.cos(rz), -np.sin(rz), 0],
+        [np.sin(rz), np.cos(rz), 0],
+        [0, 0, 1]
+    ], dtype=np.float32)
+
+    return rot_z @ rot_y @ rot_x
+
+
+def clamp_point(point, limit=10000):
+    return (
+        int(max(-limit, min(limit, point[0]))),
+        int(max(-limit, min(limit, point[1]))),
+    )
+
+
+def draw_box_overlay(cv_image, points_2d, color, label_text):
+    pts = np.asarray(points_2d, dtype=np.float32)
+    vertices = pts[:8]
+    center = pts[8]
+    center_plot = clamp_point(center)
+
+    for start, end in BOX_DRAW_EDGES:
+        pt1 = clamp_point(vertices[start])
+        pt2 = clamp_point(vertices[end])
+        cv2.line(cv_image, pt1, pt2, color, 2)
+
+    cv2.circle(cv_image, center_plot, 4, (0, 0, 255), -1)
+    cv2.putText(
+        cv_image,
+        label_text,
+        (center_plot[0] + 6, center_plot[1] - 6),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.5,
+        (255, 255, 255),
+        1,
+        cv2.LINE_AA,
+    )
+
+
+def load_demo_targets(frame_name):
+    frame_name = Path(frame_name).name
+    csv_path = DEMO_BOX_DIR / f"{Path(frame_name).stem}.csv"
+
+    if not csv_path.exists():
+        raise FileNotFoundError(f"Annotation file not found for demo frame: {frame_name}")
+
+    targets = []
+    with csv_path.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            x = float(row["x"])
+            y = float(row["y"])
+            z = float(row["z"])
+            w = abs(float(row["w"]))
+            h = abs(float(row["h"]))
+            l = abs(float(row["l"]))
+            roll = float(row["roll"])
+            pitch = float(row["pitch"])
+            yaw = float(row["yaw"])
+
+            rotation = euler_to_rotation([roll, pitch, yaw])
+            x_corners = [w / 2, -w / 2, -w / 2, w / 2, w / 2, -w / 2, -w / 2, w / 2, 0]
+            y_corners = [h / 2, h / 2, h / 2, h / 2, -h / 2, -h / 2, -h / 2, -h / 2, 0]
+            z_corners = [l / 2, l / 2, -l / 2, -l / 2, l / 2, l / 2, -l / 2, -l / 2, 0]
+            corners = np.array([x_corners, y_corners, z_corners], dtype=np.float32)
+            corners_3d = rotation @ corners
+            corners_3d += np.array([x, y, z], dtype=np.float32).reshape(3, 1)
+            corners_3d = corners_3d.transpose(1, 0)
+
+            pts_2d = []
+            valid_projection = True
+            for point in corners_3d:
+                depth = -float(point[2])
+                if depth <= 1e-6:
+                    valid_projection = False
+                    break
+                u = FX * float(point[0]) / depth + CX
+                v = FY * float(-point[1]) / depth + CY
+                pts_2d.append([u, v])
+
+            if not valid_projection:
+                continue
+
+            pts_array = np.asarray(pts_2d, dtype=np.float32)
+            if not np.any(
+                (pts_array[:, 0] >= -100) & (pts_array[:, 0] <= 900) &
+                (pts_array[:, 1] >= -100) & (pts_array[:, 1] <= 700)
+            ):
+                continue
+
+            targets.append({
+                "label": int(float(row["label"])),
+                "confidence": 1.0,
+                "center_2d": [float(pts_array[8, 0]), float(pts_array[8, 1])],
+                "points_2d": pts_array.tolist(),
+                "position": {
+                    "x": float(x * 1000),
+                    "y": float(y * 1000),
+                    "z": float(abs(z) * 1000),
+                },
+                "dimensions": {
+                    "l": float(l * 1000),
+                    "w": float(w * 1000),
+                    "h": float(h * 1000),
+                }
+            })
+
+    targets.sort(key=lambda target: target["position"]["z"])
+    return targets
+
+
+def encode_image_to_base64(cv_image):
+    success, buffer = cv2.imencode(".jpg", cv_image)
+    if not success:
+        raise RuntimeError("Failed to encode result image.")
+    jpg_as_text = base64.b64encode(buffer).decode("utf-8")
+    return f"data:image/jpeg;base64,{jpg_as_text}"
+
+
+def strip_points_2d(targets):
+    cleaned_targets = []
+    for target in targets:
+        cleaned_target = dict(target)
+        cleaned_target.pop("points_2d", None)
+        cleaned_targets.append(cleaned_target)
+    return cleaned_targets
+
+
+def build_demo_frame_result(frame_name):
+    frame_name = Path(frame_name).name
+    image_path = DEMO_FRAME_DIR / frame_name
+    if not image_path.exists():
+        raise FileNotFoundError(f"Demo frame not found: {frame_name}")
+
+    cv_image = cv2.imread(str(image_path))
+    if cv_image is None:
+        raise RuntimeError(f"Failed to load demo frame: {frame_name}")
+
+    targets = load_demo_targets(frame_name)
+    for index, target in enumerate(targets):
+        color = DEMO_COLORS[index % len(DEMO_COLORS)]
+        draw_box_overlay(cv_image, target["points_2d"], color, f"GT #{index + 1}")
+
+    return {
+        "frame": frame_name,
+        "mode": "ground_truth_replay",
+        "targets": strip_points_2d(targets),
+        "result_image": encode_image_to_base64(cv_image),
+    }
+
+# --- 7. 鏍稿績鎺ㄧ悊鍑芥暟 (鎶界浠ヤ究澶嶇敤) ---
 def run_inference(image):
     """
-    执行模型推理，返回检测到的候选目标列表
+    鎵ц妯″瀷鎺ㄧ悊锛岃繑鍥炴娴嬪埌鐨勫€欓€夌洰鏍囧垪琛?
     """
-    # 预处理 [1, 3, 600, 800]
+    # 棰勫鐞?[1, 3, 600, 800]
     image_tensor = transform(image).unsqueeze(0).to(DEVICE)
     
-    # 加入验证打印
+    # 鍔犲叆楠岃瘉鎵撳嵃
     print(f"--- Input Tensor Info ---")
     print(f"Shape: {image_tensor.shape}")
     print(f"Max pixel: {image_tensor.max().item():.4f}, Min pixel: {image_tensor.min().item():.4f}")
     print(f"Mean pixel: {image_tensor.mean().item():.4f}")
     print(f"-------------------------")
     
-    # 模型推理 [1, 22, 18, 25]
+    # 妯″瀷鎺ㄧ悊 [1, 22, 18, 25]
     with torch.no_grad():
         output = model(image_tensor)
-        # 不要急着转 numpy，先在 Tensor 上做 Sigmoid
+        # 涓嶈鎬ョ潃杞?numpy锛屽厛鍦?Tensor 涓婂仛 Sigmoid
         
-    # 1. 强制 Sigmoid 激活置信度
+    # 1. 寮哄埗 Sigmoid 婵€娲荤疆淇″害
     # output shape: [1, 22, 18, 25]
     conf_logits = output[0, 21, :, :] # [18, 25]
     conf_scores = torch.sigmoid(conf_logits).cpu().numpy() # [18, 25]
     
     output = output.cpu().numpy()[0] # [22, 18, 25]
 
-    # 2. 提高阈值
+    # 2. 鎻愰珮闃堝€?
     CONF_THRESHOLD = 0.60
     candidates = []
     
-    # 找到所有置信度 > 阈值的网格索引
+    # 鎵惧埌鎵€鏈夌疆淇″害 > 闃堝€肩殑缃戞牸绱㈠紩
     valid_indices = np.where(conf_scores > CONF_THRESHOLD)
     
     # --- DEBUG INFO ---
-    print(f"==== 当前图像的最高置信度: {conf_scores.max().item():.4f} ====")
+    print(f"Current max confidence: {conf_scores.max().item():.4f}")
     if len(valid_indices[0]) == 0:
         print(f"DEBUG: No targets found above threshold {CONF_THRESHOLD}.")
     
     for i in range(len(valid_indices[0])):
         gy, gx = valid_indices[0][i], valid_indices[1][i]
         
-        # 提取该网格的 22 维向量
+        # 鎻愬彇璇ョ綉鏍肩殑 22 缁村悜閲?
         vec = output[:, gy, gx]
         confidence = float(conf_scores[gy, gx])
         
-        # 解析参数
+        # 瑙ｆ瀽鍙傛暟
         center_2d = vec[0:2] # u, v
         vertex_offsets = vec[2:18]
         dims_3d = vec[18:21] # w, h, l
         
-        # 坐标防越界保护
+        # 鍧愭爣闃茶秺鐣屼繚鎶?
         u_curr, v_curr = float(center_2d[0]), float(center_2d[1])
         
-        # --- DEBUG MODE: 打印详细信息 ---
+        # --- DEBUG MODE: 鎵撳嵃璇︾粏淇℃伅 ---
         if confidence > 0.6:
-            print(f"🔥 发现及格目标: Grid({gy},{gx}), Score={confidence:.4f}, Raw_U={u_curr:.2f}, Raw_V={v_curr:.2f}")
+            print(f"Candidate target detected: Grid({gy},{gx}), Score={confidence:.4f}, Raw_U={u_curr:.2f}, Raw_V={v_curr:.2f}")
         
         # ---------------------------------------------
 
-        # 强制尺寸为正数
+        # 寮哄埗灏哄涓烘鏁?
         w, h, l = np.abs(dims_3d[0]), np.abs(dims_3d[1]), np.abs(dims_3d[2])
         w, h, l = max(w, 0.01), max(h, 0.01), max(l, 0.01)
 
-        # --- 3D 物理尺寸与深度安检 ---
+        # --- 3D 鐗╃悊灏哄涓庢繁搴﹀畨妫€ ---
         w_final, h_final, l_final = w * 1000, h * 1000, l * 1000
         if not (10 < w_final < 150 and 10 < h_final < 150 and 10 < l_final < 150):
             continue
         
-        # PnP 解算
+        # PnP 瑙ｇ畻
         points_2d = []
         for k in range(8):
             u = u_curr + vertex_offsets[2*k]
             v = v_curr + vertex_offsets[2*k+1]
             points_2d.append([u, v])
-        points_2d.append([u_curr, v_curr]) # 中心点
+        points_2d.append([u_curr, v_curr]) # 涓績鐐?
         points_2d = np.array(points_2d, dtype=np.float32)
 
-        # 3D 物体坐标系
+        # 3D 鐗╀綋鍧愭爣绯?
         x_corners = [w/2, -w/2, -w/2, w/2, w/2, -w/2, -w/2, w/2, 0]
         y_corners = [h/2, h/2, h/2, h/2, -h/2, -h/2, -h/2, -h/2, 0]
         z_corners = [l/2, l/2, -l/2, -l/2, l/2, l/2, -l/2, -l/2, 0]
@@ -196,15 +383,15 @@ def run_inference(image):
             x_pos, y_pos, z_pos = tvec.flatten()
             z_final = z_pos * 1000
             
-            # --- 深度必须合理 ---
+            # --- 娣卞害蹇呴』鍚堢悊 ---
             if not (50 < z_final < 2000):
                 continue
 
-            # 候选目标
+            # 鍊欓€夌洰鏍?
             candidate = {
                 "confidence": confidence,
                 "center_2d": [u_curr, v_curr],
-                "points_2d": points_2d.tolist(), # 保存所有顶点用于绘图
+                "points_2d": points_2d.tolist(), # 淇濆瓨鎵€鏈夐《鐐圭敤浜庣粯鍥?
                 "position": {
                     "x": float(x_pos * 1000), # mm
                     "y": float(y_pos * 1000),
@@ -218,16 +405,16 @@ def run_inference(image):
             }
             candidates.append(candidate)
 
-    # 3. NMS 过滤 (dist_threshold=60)
+    # 3. NMS 杩囨护 (dist_threshold=60)
     final_results = nms(candidates, dist_threshold=60.0)
     return final_results
 
-# --- 8. API 接口: 实时视频流预测 (保持兼容) ---
+# --- 8. API 鎺ュ彛: 瀹炴椂瑙嗛娴侀娴?(淇濇寔鍏煎) ---
 @app.post("/api/predict")
 async def predict(file: UploadFile = File(...)):
     """
     Grid-based Multi-Object Detection & Pose Estimation
-    返回 JSON 数组，包含所有检测到的目标。
+    杩斿洖 JSON 鏁扮粍锛屽寘鍚墍鏈夋娴嬪埌鐨勭洰鏍囥€?
     """
     try:
         image_data = await file.read()
@@ -235,7 +422,7 @@ async def predict(file: UploadFile = File(...)):
         
         final_results = run_inference(image)
         
-        # 为了减少传输数据量，实时接口可以移除 points_2d 详细数据，只保留 center_2d
+        # 涓轰簡鍑忓皯浼犺緭鏁版嵁閲忥紝瀹炴椂鎺ュ彛鍙互绉婚櫎 points_2d 璇︾粏鏁版嵁锛屽彧淇濈暀 center_2d
         for res in final_results:
             if 'points_2d' in res:
                 del res['points_2d']
@@ -246,85 +433,80 @@ async def predict(file: UploadFile = File(...)):
         print(f"Prediction Error: {e}")
         return [{"error": str(e)}]
 
-# --- 9. API 接口: 单图静态分析 (新增) ---
+# --- 9. API 鎺ュ彛: 鍗曞浘闈欐€佸垎鏋?(鏂板) ---
 @app.post("/api/analyze_image")
 async def analyze_image(file: UploadFile = File(...)):
     """
-    单图上传分析接口。
-    返回: { "targets": [...], "result_image": "base64_string" }
+    鍗曞浘涓婁紶鍒嗘瀽鎺ュ彛銆?
+    杩斿洖: { "targets": [...], "result_image": "base64_string" }
     """
     try:
-        # 读取图片
+        # 璇诲彇鍥剧墖
         image_data = await file.read()
         pil_image = Image.open(BytesIO(image_data)).convert("RGB")
         
-        # 执行推理
+        # 鎵ц鎺ㄧ悊
         targets = run_inference(pil_image)
         
-        # 转换 OpenCV 格式以便绘图 (RGB -> BGR)
-        # 注意：推理时我们 resize 到了 800x600，所以绘图也要在 800x600 上进行
-        # 或者将坐标映射回原图。为了简单，我们将原图 resize 到 800x600 返回。
+        # 杞崲 OpenCV 鏍煎紡浠ヤ究缁樺浘 (RGB -> BGR)
+        # 娉ㄦ剰锛氭帹鐞嗘椂鎴戜滑 resize 鍒颁簡 800x600锛屾墍浠ョ粯鍥句篃瑕佸湪 800x600 涓婅繘琛?
+        # 鎴栬€呭皢鍧愭爣鏄犲皠鍥炲師鍥俱€備负浜嗙畝鍗曪紝鎴戜滑灏嗗師鍥?resize 鍒?800x600 杩斿洖銆?
         cv_image = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
         
-        # --- FIX: 强制将底图 Resize 到与推理一致的尺寸 (800x600) ---
-        # 否则预测的坐标 (基于800x600) 画在原图上会错位
+        # --- FIX: 寮哄埗灏嗗簳鍥?Resize 鍒颁笌鎺ㄧ悊涓€鑷寸殑灏哄 (800x600) ---
+        # 鍚﹀垯棰勬祴鐨勫潗鏍?(鍩轰簬800x600) 鐢诲湪鍘熷浘涓婁細閿欎綅
         cv_image = cv2.resize(cv_image, (800, 600))
         # --------------------------------------------------------
         
-        # 绘制 3D 边界框
+        # 缁樺埗 3D 杈圭晫妗?
         for target in targets:
-            # 4. 安全的 OpenCV 画框: 坐标转 Int
-            pts = np.array(target['points_2d'], dtype=np.int32)
-            vertices = pts[:8]
-            center = pts[8]
-            
-            # --- FIX: 画图防越界保护 (限制在画布范围内) ---
-            # 虽然 cv2.line 支持越界坐标，但为了防止极端值溢出 int32，这里做个软截断
-            center_plot = (
-                int(max(-10000, min(10000, center[0]))),
-                int(max(-10000, min(10000, center[1])))
-            )
-            # -------------------------------------------
-            
-            edges = [
-                (0, 1), (1, 2), (2, 3), (3, 0),
-                (4, 5), (5, 6), (6, 7), (7, 4),
-                (0, 4), (1, 5), (2, 6), (3, 7)
-            ]
-            
-            color = (0, 255, 0) # Green
-            for start, end in edges:
-                pt1 = tuple(vertices[start])
-                pt2 = tuple(vertices[end])
-                # 同样的软截断保护
-                pt1_safe = (int(max(-10000, min(10000, pt1[0]))), int(max(-10000, min(10000, pt1[1]))))
-                pt2_safe = (int(max(-10000, min(10000, pt2[0]))), int(max(-10000, min(10000, pt2[1]))))
-                cv2.line(cv_image, pt1_safe, pt2_safe, color, 2)
-            
-            cv2.circle(cv_image, center_plot, 4, (0, 0, 255), -1)
-            
-            conf_text = f"{target['confidence']:.2f}"
-            cv2.putText(cv_image, conf_text, (center_plot[0]+5, center_plot[1]-5), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
-
-        # 编码结果图像为 Base64
-        _, buffer = cv2.imencode('.jpg', cv_image)
-        jpg_as_text = base64.b64encode(buffer).decode('utf-8')
-        base64_string = f"data:image/jpeg;base64,{jpg_as_text}"
-        
-        # 清理 targets 中的 points_2d 以精简 JSON
-        for t in targets:
-            if 'points_2d' in t:
-                del t['points_2d']
+            draw_box_overlay(cv_image, target["points_2d"], (0, 255, 0), f"{target['confidence']:.2f}")
         
         return {
-            "targets": targets,
-            "result_image": base64_string
+            "targets": strip_points_2d(targets),
+            "result_image": encode_image_to_base64(cv_image)
         }
 
     except Exception as e:
         print(f"Analysis Error: {e}")
         return {"error": str(e)}
+
+@app.get("/api/demo/frames")
+def demo_frames(limit: int = 120):
+    if not DEMO_FRAME_DIR.exists():
+        return {"frames": [], "count": 0}
+
+    image_suffixes = {".png", ".jpg", ".jpeg"}
+    frames = sorted(
+        path for path in DEMO_FRAME_DIR.iterdir()
+        if path.is_file()
+        and path.suffix.lower() in image_suffixes
+        and (DEMO_BOX_DIR / f"{path.stem}.csv").exists()
+    )[:max(limit, 0)]
+
+    return {
+        "count": len(frames),
+        "frames": [
+            {
+                "name": frame.name,
+                "url": f"/demo-data/{frame.name}",
+            }
+            for frame in frames
+        ],
+    }
+
+
+@app.get("/api/demo/analyze_frame")
+def demo_analyze_frame(name: str):
+    try:
+        return build_demo_frame_result(name)
+    except Exception as e:
+        print(f"Demo Analysis Error: {e}")
+        return {"error": str(e)}
+
+@app.get("/api/health")
+def health():
+    return {"status": "ok"}
 
 @app.get("/")
 def read_root():
@@ -332,3 +514,4 @@ def read_root():
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
+

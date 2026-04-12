@@ -1,0 +1,68 @@
+<mxfile host="65bd71144e">
+    <diagram id="vector-encoding" name="Grid Encoding Logic">
+        <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="1" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                
+                <mxCell id="vt" value="草莓 3D 信息网格化编码原理 (Grid-based 3D Information Encoding)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="280" y="40" width="600" height="40" as="geometry"/>
+                </mxCell>
+
+                <!-- Grid Illustration -->
+                <mxCell id="grid-bg" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="120" width="320" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="grid-line-h" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingLeft=20;spacingRight=20;strokeColor=#cccccc;direction=south" vertex="1" parent="1">
+                    <mxGeometry x="80" y="120" width="320" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="grid-line-v" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingLeft=20;spacingRight=20;strokeColor=#cccccc;direction=east" vertex="1" parent="1">
+                    <mxGeometry x="80" y="120" width="320" height="240" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="strawberry" value="Strawberry" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;opacity=50;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="180" width="80" height="100" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="active-cell" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="220" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ann1" value="激活网格 (Grid Cell)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="245" width="80" height="20" as="geometry"/>
+                </mxCell>
+
+                <!-- Vector Breakdown -->
+                <mxCell id="vector-box" value="&lt;b&gt;22-Dimensional Prediction Vector (V)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="120" width="600" height="260" as="geometry"/>
+                </mxCell>
+                
+                <!-- Vector segments -->
+                <mxCell id="v1" value="&lt;b&gt;Center&lt;/b&gt;&lt;br&gt;(u, v)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" vertex="1" parent="vector-box">
+                    <mxGeometry x="20" y="50" width="80" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="v2" value="&lt;b&gt;3D Box Offsets&lt;/b&gt;&lt;br&gt;(Δu1, Δv1) ... (Δu8, Δv8)&lt;br&gt;&lt;i&gt;16 Dimensions&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" vertex="1" parent="vector-box">
+                    <mxGeometry x="110" y="50" width="260" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="v3" value="&lt;b&gt;Size&lt;/b&gt;&lt;br&gt;(l, w, h)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" vertex="1" parent="vector-box">
+                    <mxGeometry x="380" y="50" width="100" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="v4" value="&lt;b&gt;Conf&lt;/b&gt;&lt;br&gt;(s)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" vertex="1" parent="vector-box">
+                    <mxGeometry x="490" y="50" width="80" height="120" as="geometry"/>
+                </mxCell>
+
+                <mxCell id="conn" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;dashed=1;" edge="1" parent="1" source="active-cell" target="vector-box">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+                </mxCell>
+
+                <!-- Formula -->
+                <mxCell id="formula" value="$$ \mathbf{V}_{grid} = [u_c, v_c, \underbrace{\Delta u_1, \Delta v_1, \dots, \Delta u_8, \Delta v_8}_{16}, l, w, h, s]^T $$" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="330" width="600" height="40" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="note" value="网格分辨率: 18 × 25&lt;br&gt;感受野: 每个网格覆盖 32 × 32 像素区域" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#666666;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="370" width="220" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

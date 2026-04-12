@@ -6,7 +6,6 @@ Straw6D_Upload/
 *.rar
 
 # 模型权重（通常较大且 GitHub 有 100MB 限制）
-# 如果您的权重文件 darknet_strawberry_checkpoint.pth 确实需要上传且小于 100MB，可以手动在下面去掉对 *.pth 的限制
 *.pth
 *.h5
 
@@ -23,6 +22,16 @@ __pycache__/
 env/
 venv/
 
-# 系统临时文件
+# 系统临时文件与日志
 .DS_Store
 Thumbs.db
+*.log
+*.err.log
+tmp_*.txt
+__current_docx_content__.txt
+.claude/
+.vscode/
+.idea/
+
+# 绘图备份
+*.drawio.bkp
