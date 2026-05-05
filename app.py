@@ -157,28 +157,43 @@ def clamp_point(point, limit=10000):
     )
 
 
-def draw_box_overlay(cv_image, points_2d, color, label_text):
+def draw_box_overlay(cv_image, points_2d, color, label_text, axis_2d=None):
     pts = np.asarray(points_2d, dtype=np.float32)
     vertices = pts[:8]
     center = pts[8]
     center_plot = clamp_point(center)
 
+    # 1. 绘制立体框的 12 条边
     for start, end in BOX_DRAW_EDGES:
         pt1 = clamp_point(vertices[start])
         pt2 = clamp_point(vertices[end])
         cv2.line(cv_image, pt1, pt2, color, 2)
 
-    cv2.circle(cv_image, center_plot, 4, (0, 0, 255), -1)
-    cv2.putText(
-        cv_image,
-        label_text,
-        (center_plot[0] + 6, center_plot[1] - 6),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        0.5,
-        (255, 255, 255),
-        1,
-        cv2.LINE_AA,
-    )
+    # 2. 绘制 RGB 三色坐标轴 (如果存在)
+    if axis_2d is not None:
+        # axis_2d 顺序: [X_tip, Y_tip, Z_tip, Origin]
+        origin = clamp_point(axis_2d[3])
+        x_tip = clamp_point(axis_2d[0])
+        y_tip = clamp_point(axis_2d[1])
+        z_tip = clamp_point(axis_2d[2])
+        
+        # OpenCV 是 BGR: Red(0,0,255), Green(0,255,0), Blue(255,0,0)
+        cv2.line(cv_image, origin, x_tip, (0, 0, 255), 3) # X - 红
+        cv2.line(cv_image, origin, y_tip, (0, 255, 0), 3) # Y - 绿
+        cv2.line(cv_image, origin, z_tip, (255, 0, 0), 3) # Z - 蓝
+
+    # 3. 移除原本的中心点圆圈和文字标签，保持画面纯净
+    # cv2.circle(cv_image, center_plot, 4, (0, 0, 255), -1)
+    # cv2.putText(
+    #     cv_image,
+    #     label_text,
+    #     (center_plot[0] + 6, center_plot[1] - 6),
+    #     cv2.FONT_HERSHEY_SIMPLEX,
+    #     0.5,
+    #     (255, 255, 255),
+    #     1,
+    #     cv2.LINE_AA,
+    # )
 
 
 def load_demo_targets(frame_name):
@@ -265,7 +280,7 @@ def strip_points_2d(targets):
     cleaned_targets = []
     for target in targets:
         cleaned_target = dict(target)
-        cleaned_target.pop("points_2d", None)
+        # 保持 points_2d 以便前端绘制（如果需要的话，实时接口现在不再删除它）
         cleaned_targets.append(cleaned_target)
     return cleaned_targets
 
@@ -320,93 +335,35 @@ def run_inference(image):
     output = output.cpu().numpy()[0] # [22, 18, 25]
 
     # 2. 鎻愰珮闃堝€?
-    CONF_THRESHOLD = 0.60
+    # 2. 降低阈值并引入 Fallback 机制
+    CONF_THRESHOLD = 0.35
     candidates = []
-    
-    # 鎵惧埌鎵€鏈夌疆淇″害 > 闃堝€肩殑缃戞牸绱㈠紩
     valid_indices = np.where(conf_scores > CONF_THRESHOLD)
-    
-    # --- DEBUG INFO ---
-    print(f"Current max confidence: {conf_scores.max().item():.4f}")
-    if len(valid_indices[0]) == 0:
-        print(f"DEBUG: No targets found above threshold {CONF_THRESHOLD}.")
-    
-    for i in range(len(valid_indices[0])):
-        gy, gx = valid_indices[0][i], valid_indices[1][i]
-        
-        # 鎻愬彇璇ョ綉鏍肩殑 22 缁村悜閲?
+    for j in range(len(valid_indices[0])):
+        gy, gx = valid_indices[0][j], valid_indices[1][j]
         vec = output[:, gy, gx]
         confidence = float(conf_scores[gy, gx])
-        
-        # 瑙ｆ瀽鍙傛暟
-        center_2d = vec[0:2] # u, v
+        u_curr, v_curr = float(vec[0]), float(vec[1])
         vertex_offsets = vec[2:18]
-        dims_3d = vec[18:21] # w, h, l
-        
-        # 鍧愭爣闃茶秺鐣屼繚鎶?
-        u_curr, v_curr = float(center_2d[0]), float(center_2d[1])
-        
-        # --- DEBUG MODE: 鎵撳嵃璇︾粏淇℃伅 ---
-        if confidence > 0.6:
-            print(f"Candidate target detected: Grid({gy},{gx}), Score={confidence:.4f}, Raw_U={u_curr:.2f}, Raw_V={v_curr:.2f}")
-        
-        # ---------------------------------------------
-
-        # 寮哄埗灏哄涓烘鏁?
+        dims_3d = vec[18:21]
         w, h, l = np.abs(dims_3d[0]), np.abs(dims_3d[1]), np.abs(dims_3d[2])
         w, h, l = max(w, 0.01), max(h, 0.01), max(l, 0.01)
-
-        # --- 3D 鐗╃悊灏哄涓庢繁搴﹀畨妫€ ---
-        w_final, h_final, l_final = w * 1000, h * 1000, l * 1000
-        if not (10 < w_final < 150 and 10 < h_final < 150 and 10 < l_final < 150):
-            continue
-        
-        # PnP 瑙ｇ畻
-        points_2d = []
-        for k in range(8):
-            u = u_curr + vertex_offsets[2*k]
-            v = v_curr + vertex_offsets[2*k+1]
-            points_2d.append([u, v])
-        points_2d.append([u_curr, v_curr]) # 涓績鐐?
-        points_2d = np.array(points_2d, dtype=np.float32)
-
-        # 3D 鐗╀綋鍧愭爣绯?
-        x_corners = [w/2, -w/2, -w/2, w/2, w/2, -w/2, -w/2, w/2, 0]
-        y_corners = [h/2, h/2, h/2, h/2, -h/2, -h/2, -h/2, -h/2, 0]
-        z_corners = [l/2, l/2, -l/2, -l/2, l/2, l/2, -l/2, -l/2, 0]
-        points_3d = np.array([x_corners, y_corners, z_corners], dtype=np.float32).T
-
-        # Solve PnP
-        success, rvec, tvec = cv2.solvePnP(points_3d, points_2d, K, DIST_COEFFS, flags=cv2.SOLVEPNP_EPNP)
-        
+        w_f, h_f, l_f = w * 1000, h * 1000, l * 1000
+        if not (5 < w_f < 200 and 5 < h_f < 200 and 5 < l_f < 200): continue
+        pts_2d = np.array([[u_curr + vertex_offsets[2*k], v_curr + vertex_offsets[2*k+1]] for k in range(8)] + [[u_curr, v_curr]], dtype=np.float32)
+        pts_3d = np.array([[w/2,-w/2,-w/2,w/2,w/2,-w/2,-w/2,w/2,0],[h/2,h/2,h/2,h/2,-h/2,-h/2,-h/2,-h/2,0],[l/2,l/2,-l/2,-l/2,l/2,l/2,-l/2,-l/2,0]], dtype=np.float32).T
+        success, rvec, tvec = cv2.solvePnP(pts_3d, pts_2d, K, DIST_COEFFS, flags=cv2.SOLVEPNP_EPNP)
+        if not success:
+            z_fb = 0.5; tvec = np.array([[ (u_curr-K[0,2])*z_fb/K[0,0] ], [ (v_curr-K[1,2])*z_fb/K[1,1] ], [z_fb]], dtype=np.float32)
+            rvec = np.zeros((3,1), dtype=np.float32); success = True
         if success:
-            x_pos, y_pos, z_pos = tvec.flatten()
-            z_final = z_pos * 1000
-            
-            # --- 娣卞害蹇呴』鍚堢悊 ---
-            if not (50 < z_final < 2000):
-                continue
-
-            # 鍊欓€夌洰鏍?
-            candidate = {
-                "confidence": confidence,
-                "center_2d": [u_curr, v_curr],
-                "points_2d": points_2d.tolist(), # 淇濆瓨鎵€鏈夐《鐐圭敤浜庣粯鍥?
-                "position": {
-                    "x": float(x_pos * 1000), # mm
-                    "y": float(y_pos * 1000),
-                    "z": float(z_final)
-                },
-                "dimensions": {
-                    "l": float(l_final), # mm
-                    "w": float(w_final),
-                    "h": float(h_final)
-                }
-            }
-            candidates.append(candidate)
-
-    # 3. NMS 杩囨护 (dist_threshold=60)
-    final_results = nms(candidates, dist_threshold=60.0)
+            x_p, y_p, z_p = tvec.flatten(); z_f = z_p * 1000
+            if not (50 < z_f < 3000): continue
+            ax_len = min(w,h,l)*0.8; ax_3d = np.array([[ax_len,0,0],[0,ax_len,0],[0,0,ax_len],[0,0,0]], dtype=np.float32)
+            ax_2d, _ = cv2.projectPoints(ax_3d, rvec, tvec, K, DIST_COEFFS)
+            candidates.append({"confidence": confidence, "center_2d": [u_curr, v_curr], "points_2d": pts_2d.tolist(), "axis_2d": ax_2d.reshape(-1,2).tolist(), "position": {"x":float(x_p*1000),"y":float(y_p*1000),"z":float(z_f)}, "dimensions": {"l":float(l_f),"w":float(w_f),"h":float(h_f)}})
+    # 3. NMS 过滤 (优化后的阈值)
+    final_results = nms(candidates, dist_threshold=35.0)
     return final_results
 
 # --- 8. API 鎺ュ彛: 瀹炴椂瑙嗛娴侀娴?(淇濇寔鍏煎) ---
@@ -421,12 +378,6 @@ async def predict(file: UploadFile = File(...)):
         image = Image.open(BytesIO(image_data)).convert("RGB")
         
         final_results = run_inference(image)
-        
-        # 涓轰簡鍑忓皯浼犺緭鏁版嵁閲忥紝瀹炴椂鎺ュ彛鍙互绉婚櫎 points_2d 璇︾粏鏁版嵁锛屽彧淇濈暀 center_2d
-        for res in final_results:
-            if 'points_2d' in res:
-                del res['points_2d']
-        
         return final_results
 
     except Exception as e:
@@ -458,14 +409,21 @@ async def analyze_image(file: UploadFile = File(...)):
         cv_image = cv2.resize(cv_image, (800, 600))
         # --------------------------------------------------------
         
-        # 缁樺埗 3D 杈圭晫妗?
+        # --- 恢复后端精准绘图 (作为底色) ---
         for target in targets:
-            draw_box_overlay(cv_image, target["points_2d"], (0, 255, 0), f"{target['confidence']:.2f}")
-        
+            draw_box_overlay(
+                cv_image, 
+                target["points_2d"], 
+                (0, 255, 0), # 绿框
+                f"{target['confidence']:.2f}",
+                axis_2d=target.get("axis_2d")
+            )
+
         return {
             "targets": strip_points_2d(targets),
             "result_image": encode_image_to_base64(cv_image)
         }
+
 
     except Exception as e:
         print(f"Analysis Error: {e}")

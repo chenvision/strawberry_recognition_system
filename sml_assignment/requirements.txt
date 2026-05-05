@@ -1,0 +1,8 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+tqdm
+# Parquet 引擎 (解决刚才的报错)
+pyarrow

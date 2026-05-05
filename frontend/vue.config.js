@@ -6,6 +6,10 @@ module.exports = defineConfig({
       '^/api': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: true
+      },
+      '^/demo-data': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
       }
     }
   }

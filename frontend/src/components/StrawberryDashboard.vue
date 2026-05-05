@@ -54,10 +54,10 @@
       <section class="stage-area">
         <div class="stage-container">
           <!-- Camera Mode -->
-          <div v-show="activeTab === 'camera'" class="view-panel">
+          <div :style="{ display: activeTab === 'camera' ? 'flex' : 'none' }" class="view-panel">
             <div class="viewport">
-              <video v-show="isStreamActive" ref="videoElement" autoplay playsinline muted class="source-feed"></video>
-              <canvas ref="canvasElement" style="display:none"></canvas>
+              <video ref="videoElement" autoplay playsinline muted class="source-feed"></video>
+              <canvas ref="overlayCanvasCamera" class="overlay-canvas" width="800" height="600"></canvas>
               
               <!-- Camera Error / Placeholder -->
               <div v-if="!isStreamActive" class="camera-placeholder">
@@ -74,23 +74,17 @@
                   <div class="tip">3. 确认摄像头没有被<b>微信、会议软件</b>或其他浏览器窗口占用</div>
                 </div>
                 <div class="action-row">
-                  <button class="btn-primary" @click="initCamera" :disabled="isCameraLoading">
+                  <button class="btn-primary" @click="handleInitCamera" :disabled="isCameraLoading">
                     {{ isCameraLoading ? '正在重试...' : '重新连接摄像头' }}
                   </button>
                   <button class="btn-outline" @click="activeTab = 'upload'">切换到图片上传</button>
                 </div>
               </div>
 
-              <div class="hud-overlay" v-if="isStreamActive">
-                <div v-for="(target, index) in targets" :key="index" 
-                     class="detection-box"
-                     :style="{ left: target.center_2d[0] + 'px', top: target.center_2d[1] + 'px' }">
-                  <span class="box-label">#{{ index + 1 }}</span>
-                </div>
-              </div>
+              <div class="hud-overlay" v-if="isStreamActive" @click="handleViewportClick"></div>
             </div>
             <div class="view-controls">
-              <span class="fps-counter" :class="{ 'text-error': !isStreamActive }">{{ isStreamActive ? '2 FPS' : 'OFFLINE' }}</span>
+              <span class="fps-counter" :class="{ 'text-error': !isStreamActive }">{{ isStreamActive ? (isPredicting ? 'RUNNING' : 'WAITING') : 'OFFLINE' }}</span>
               <span class="resolution">{{ isStreamActive ? '800x600' : 'N/A' }}</span>
             </div>
           </div>
@@ -103,8 +97,12 @@
                  @dragover.prevent="isDragging = true"
                  @dragleave="isDragging = false">
               <template v-if="analysisResult.image && showResultInline">
-                <img :src="analysisResult.image" class="result-display" />
-                <button class="btn-reset" @click="clearResult">重新分析</button>
+                <div class="viewport">
+                  <img :src="analysisResult.image" class="result-display" />
+                  <canvas ref="overlayCanvasUpload" class="overlay-canvas" width="800" height="600"></canvas>
+                  <div class="hud-overlay" @click="handleViewportClick"></div>
+                  <button class="btn-reset" @click="handleClearResult">重新分析</button>
+                </div>
               </template>
               <div v-else class="upload-placeholder">
                 <div class="icon-circle">
@@ -114,8 +112,8 @@
                 </div>
                 <h3>点击或拖拽上传图片</h3>
                 <p>支持 JPG, PNG 格式</p>
-                <button class="btn-primary" @click="triggerUpload" :disabled="loading">
-                  {{ loading ? '分析中...' : '选择图片' }}
+                <button class="btn-primary" @click="triggerUpload" :disabled="uploadLoading">
+                  {{ uploadLoading ? '分析中...' : '选择图片' }}
                 </button>
                 <input type="file" ref="fileInput" @change="handleFileUpload" style="display:none">
               </div>
@@ -126,13 +124,15 @@
           <div v-show="activeTab === 'demo'" class="view-panel">
              <div v-if="demoResult" class="viewport">
                 <img :src="demoResult.result_image" class="source-feed" />
+                <canvas ref="overlayCanvasDemo" class="overlay-canvas" width="800" height="600"></canvas>
+                <div class="hud-overlay" @click="handleViewportClick"></div>
                 <button class="btn-reset-abs" @click="demoResult = null">返回图库</button>
              </div>
              <div v-else class="gallery-wrapper">
                 <div class="gallery-grid">
                    <div v-for="frame in demoFrames" :key="frame.name" 
-                        class="gallery-thumb" @click="analyzeDemoFrame(frame.name)">
-                      <img :src="'http://127.0.0.1:8000' + frame.url" loading="lazy" />
+                        class="gallery-thumb" @click="handleAnalyzeDemoFrame(frame.name)">
+                      <img :src="demoFrameUrl(frame.url)" loading="lazy" />
                       <div class="thumb-overlay">
                         <span v-if="demoLoadingFrame === frame.name" class="loader-sm"></span>
                         <span v-else>{{ frame.name }}</span>
@@ -216,190 +216,268 @@
 </template>
 
 <script>
-/* (Keep existing script logic - no changes needed to methods) */
-import axios from 'axios';
-
-const API_BASE = 'http://127.0.0.1:8000';
+import { ref, computed, watch, onMounted } from 'vue';
+import { getApiBase } from '@/services/apiBase';
+import { health as apiHealth } from '@/services/strawberryApi';
+import { useCamera } from '@/composables/useCamera';
+import { useInferenceLoop } from '@/composables/useInferenceLoop';
+import { useFileUploader } from '@/composables/useFileUploader';
 
 export default {
   name: 'StrawberryDashboard',
-  data() {
-    return {
-      activeTab: 'upload',
-      tabs: [
-        { key: 'camera', label: '实时检测' },
-        { key: 'upload', label: '图片分析' },
-        { key: 'demo', label: '演示图库' },
-      ],
-      targets: [],
-      isStreamActive: false,
-      isCameraLoading: false,
-      cameraErrorMsg: '',
-      timer: null,
-      loading: false,
-      isDragging: false,
-      showResultInline: false,
-      analysisResult: { image: '', targets: [] },
-      demoFrames: [],
-      demoResult: null,
-      demoLoadingFrame: null,
-      logs: [],
-      selectedTargetIndex: 0,
-      backendOnline: false,
+  setup() {
+    // --- UI State ---
+    const activeTab = ref('upload');
+    const tabs = [
+      { key: 'camera', label: '实时检测' },
+      { key: 'upload', label: '图片分析' },
+      { key: 'demo', label: '演示图库' },
+    ];
+    const logs = ref([]);
+    const backendOnline = ref(false);
+    const selectedTargetIndex = ref(0);
+    const isDragging = ref(false);
+    const showResultInline = ref(false);
+    const fileInput = ref(null);
+    const overlayCanvasCamera = ref(null);
+    const overlayCanvasUpload = ref(null);
+    const overlayCanvasDemo = ref(null);
+
+    const BOX_DRAW_EDGES = [
+      [0, 1], [1, 2], [2, 3], [3, 0],
+      [4, 5], [5, 6], [6, 7], [7, 4],
+      [0, 4], [1, 5], [2, 6], [3, 7]
+    ];
+
+    const draw3DBoxOverlay = (canvas, targets, selectedIdx) => {
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      targets.forEach((target, index) => {
+        const isSelected = index === selectedIdx;
+        const pts = target.points_2d;
+        if (!pts || pts.length < 8) return;
+
+        // 颜色设置
+        const color = isSelected ? '#f59e0b' : '#10b981'; // 选中橘黄，默认绿
+        ctx.strokeStyle = color;
+        ctx.lineWidth = isSelected ? 4 : 2;
+        ctx.lineJoin = 'round';
+
+        // 1. 绘制 12 条边
+        BOX_DRAW_EDGES.forEach(([start, end]) => {
+          ctx.beginPath();
+          ctx.moveTo(pts[start][0], pts[start][1]);
+          ctx.lineTo(pts[end][0], pts[end][1]);
+          ctx.stroke();
+        });
+
+        // 2. 绘制坐标轴 (如果存在)
+        if (target.axis_2d) {
+          const ax = target.axis_2d; // [X_tip, Y_tip, Z_tip, Origin]
+          const origin = ax[3];
+          
+          const drawAxis = (tip, strokeColor) => {
+            ctx.beginPath();
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = isSelected ? 3 : 2;
+            ctx.moveTo(origin[0], origin[1]);
+            ctx.lineTo(tip[0], tip[1]);
+            ctx.stroke();
+          };
+
+          drawAxis(ax[0], '#ef4444'); // X - 红
+          drawAxis(ax[1], '#10b981'); // Y - 绿
+          drawAxis(ax[2], '#3b82f6'); // Z - 蓝
+        }
+
+        // 3. 绘制中心点
+        ctx.fillStyle = isSelected ? '#f59e0b' : '#ef4444';
+        ctx.beginPath();
+        ctx.arc(pts[8][0], pts[8][1], isSelected ? 5 : 3, 0, Math.PI * 2);
+        ctx.fill();
+      });
     };
-  },
-  computed: {
-    displayTargets() {
-      if (this.activeTab === 'camera') return this.targets;
-      if (this.activeTab === 'upload') return this.analysisResult.targets;
-      if (this.activeTab === 'demo' && this.demoResult) return this.demoResult.targets || [];
+
+    const updateAllCanvases = () => {
+      const targetsVal = displayTargets.value;
+      const idxVal = selectedTargetIndex.value;
+      
+      if (activeTab.value === 'camera') draw3DBoxOverlay(overlayCanvasCamera.value, targetsVal, idxVal);
+      if (activeTab.value === 'upload') draw3DBoxOverlay(overlayCanvasUpload.value, targetsVal, idxVal);
+      if (activeTab.value === 'demo') draw3DBoxOverlay(overlayCanvasDemo.value, targetsVal, idxVal);
+    };
+
+    const handleViewportClick = (event) => {
+      const targetsVal = displayTargets.value;
+      if (targetsVal.length === 0) return;
+
+      // 获取点击位置相对于 viewport 的坐标
+      const rect = event.currentTarget.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const clickY = event.clientY - rect.top;
+
+      // 映射到 800x600 坐标系
+      const scaleX = 800 / rect.width;
+      const scaleY = 600 / rect.height;
+      const x800 = clickX * scaleX;
+      const y800 = clickY * scaleY;
+
+      // 寻找最近的目标
+      let minDistance = 50; // 50像素内的点击视为有效
+      let bestIndex = -1;
+
+      targetsVal.forEach((target, index) => {
+        const dx = x800 - target.center_2d[0];
+        const dy = y800 - target.center_2d[1];
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < minDistance) {
+          minDistance = distance;
+          bestIndex = index;
+        }
+      });
+
+      if (bestIndex !== -1) {
+        selectedTargetIndex.value = bestIndex;
+      }
+    };
+
+    // --- Helper Methods ---
+    const addLog = (message) => {
+      const time = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+      logs.value.unshift({ time, message });
+      if (logs.value.length > 30) logs.value.pop();
+    };
+
+    const setBackendOnline = (next, message) => {
+      const changed = backendOnline.value !== next;
+      backendOnline.value = next;
+      if (changed && message) addLog(message);
+    };
+
+    const checkBackend = async () => {
+      try {
+        await apiHealth();
+        setBackendOnline(true);
+      } catch {
+        setBackendOnline(false);
+      }
+    };
+
+    // --- Composables ---
+    const { 
+      videoElement, isStreamActive, isCameraLoading, initCamera
+    } = useCamera();
+
+    const { 
+      targets, isPredicting, startInference
+    } = useInferenceLoop(videoElement);
+
+    const {
+      uploadLoading, analysisResult, analyzeFile, clearUploadResult,
+      demoFrames, demoResult, demoLoadingFrame, fetchDemoFrames, analyzeDemoFrame
+    } = useFileUploader();
+
+    // --- Event Handlers ---
+    const switchTab = (key) => {
+      activeTab.value = key;
+    };
+
+    const handleInitCamera = () => {
+      initCamera(
+        () => startInference(
+          () => setBackendOnline(true),
+          () => setBackendOnline(false)
+        ),
+        (msg) => addLog(msg)
+      );
+    };
+
+    const triggerUpload = () => fileInput.value.click();
+
+    const handleFileUpload = async (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const success = await analyzeFile(file, addLog, setBackendOnline);
+        if (success) showResultInline.value = true;
+      }
+    };
+
+    const handleDrop = async (event) => {
+      isDragging.value = false;
+      const file = event.dataTransfer.files[0];
+      if (file) {
+        const success = await analyzeFile(file, addLog, setBackendOnline);
+        if (success) showResultInline.value = true;
+      }
+    };
+
+    const handleClearResult = () => {
+      clearUploadResult();
+      showResultInline.value = false;
+    };
+
+    const handleAnalyzeDemoFrame = (name) => {
+      analyzeDemoFrame(name, addLog, setBackendOnline);
+    };
+
+    const demoFrameUrl = (pathname) => {
+      const base = getApiBase();
+      return base ? `${base}${pathname}` : pathname;
+    };
+
+    // --- Computed ---
+    const displayTargets = computed(() => {
+      if (activeTab.value === 'camera') return targets.value;
+      if (activeTab.value === 'upload') return analysisResult.value.targets;
+      if (activeTab.value === 'demo' && demoResult.value) return demoResult.value.targets || [];
       return [];
-    },
-    selectedTarget() {
-      if (this.displayTargets.length > 0 && this.selectedTargetIndex < this.displayTargets.length) {
-        return this.displayTargets[this.selectedTargetIndex];
+    });
+
+    const selectedTarget = computed(() => {
+      if (displayTargets.value.length > 0 && selectedTargetIndex.value < displayTargets.value.length) {
+        return displayTargets.value[selectedTargetIndex.value];
       }
       return null;
-    }
-  },
-  watch: {
-    displayTargets() { this.selectedTargetIndex = 0; }
-  },
-  mounted() {
-    this.addLog('系统就绪');
-    this.checkBackend();
-    this.fetchDemoFrames();
-  },
-  beforeUnmount() { this.stopStream(); },
-  methods: {
-    addLog(message) {
-      const time = new Date().toLocaleTimeString('zh-CN', { hour12: false });
-      this.logs.unshift({ time, message });
-      if (this.logs.length > 30) this.logs.pop();
-    },
-    async checkBackend() {
-      try {
-        const res = await axios.get(`${API_BASE}/api/health`);
-        this.backendOnline = res.data.status === 'ok';
-      } catch { this.backendOnline = false; }
-    },
-    switchTab(key) {
-      this.activeTab = key;
-      if (key === 'camera' && !this.isStreamActive) this.initCamera();
-      if (key !== 'camera') this.stopStream();
-    },
-    async initCamera() {
-      if (this.isCameraLoading) return;
-      this.isCameraLoading = true;
-      this.isStreamActive = false;
+    });
 
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        this.addLog('错误: 浏览器不支持媒体访问(需使用localhost)');
-        this.isCameraLoading = false;
-        return;
-      }
+    // --- Watchers ---
+    watch([displayTargets, selectedTargetIndex, activeTab], () => {
+      // 使用 nextTick 确保 canvas 元素已渲染（尤其是在切换模式时）
+      setTimeout(updateAllCanvases, 0);
+    }, { deep: true });
 
-      this.addLog('正在唤醒相机硬件...');
-      
-      // 先清理旧流
-      this.stopStream();
+    watch(displayTargets, () => {
+      selectedTargetIndex.value = 0;
+    });
 
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const video = this.$refs.videoElement;
-        
-        if (video) {
-          video.srcObject = stream;
-          video.onloadedmetadata = () => {
-            video.play();
-            this.isStreamActive = true;
-            this.startInferenceLoop();
-            this.addLog('摄像头已启动并显示画面');
-            this.isCameraLoading = false;
-          };
-        }
-      } catch (err) {
-        this.addLog(`相机访问受阻: ${err.name}`);
-        this.isCameraLoading = false;
-        
-        // 探测具体原因
-        try {
-          const devices = await navigator.mediaDevices.enumerateDevices();
-          const hasVideo = devices.some(d => d.kind === 'videoinput');
-          if (!hasVideo) {
-            this.addLog('诊断: 物理层未发现设备，请检查驱动或开关');
-          } else {
-            this.addLog('诊断: 发现设备但无法连接，请检查权限或占用');
-          }
-        } catch (e) {
-          this.addLog('硬件层探测受限');
-        }
-      }
-    },
-    stopStream() {
-      if (this.timer) clearInterval(this.timer);
-      const video = this.$refs.videoElement;
-      if (video && video.srcObject) {
-        video.srcObject.getTracks().forEach(t => t.stop());
-      }
-      this.isStreamActive = false;
-    },
-    startInferenceLoop() {
-      this.timer = setInterval(() => this.captureAndPredict(), 500);
-    },
-    async captureAndPredict() {
-      if (!this.isStreamActive || this.loading) return;
-      const video = this.$refs.videoElement;
-      const canvas = this.$refs.canvasElement;
-      const context = canvas.getContext('2d');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      canvas.toBlob(async (blob) => {
-        const formData = new FormData();
-        formData.append('file', blob, 'frame.jpg');
-        try {
-          const res = await axios.post(`${API_BASE}/api/predict`, formData);
-          this.targets = Array.isArray(res.data) ? res.data : [res.data];
-        } catch (e) { /* silent fail for real-time */ }
-      }, 'image/jpeg', 0.8);
-    },
-    triggerUpload() { this.$refs.fileInput.click(); },
-    handleDrop(event) {
-      this.isDragging = false;
-      const file = event.dataTransfer.files[0];
-      if (file) this.analyzeFile(file);
-    },
-    async handleFileUpload(event) {
-      const file = event.target.files[0];
-      if (file) await this.analyzeFile(file);
-    },
-    async analyzeFile(file) {
-      this.loading = true;
-      const formData = new FormData();
-      formData.append('file', file);
-      try {
-        const res = await axios.post(`${API_BASE}/api/analyze_image`, formData);
-        this.analysisResult = { image: res.data.result_image, targets: res.data.targets };
-        this.showResultInline = true;
-        this.addLog(`上传分析完成: ${res.data.targets.length} 目标`);
-      } catch (err) { this.addLog('分析失败'); }
-      finally { this.loading = false; }
-    },
-    clearResult() { this.analysisResult = { image: '', targets: [] }; this.showResultInline = false; },
-    async fetchDemoFrames() {
-      try {
-        const res = await axios.get(`${API_BASE}/api/demo/frames?limit=60`);
-        this.demoFrames = res.data.frames || [];
-      } catch { /* ... */ }
-    },
-    async analyzeDemoFrame(name) {
-      this.demoLoadingFrame = name;
-      try {
-        const res = await axios.get(`${API_BASE}/api/demo/analyze_frame?name=${encodeURIComponent(name)}`);
-        this.demoResult = res.data;
-      } finally { this.demoLoadingFrame = null; }
-    }
+    // --- Lifecycle ---
+    onMounted(() => {
+      addLog('系统就绪');
+      checkBackend();
+      fetchDemoFrames(60, setBackendOnline);
+    });
+
+    return {
+      // State
+      activeTab, tabs, logs, backendOnline, selectedTargetIndex,
+      isDragging, showResultInline, fileInput,
+      overlayCanvasCamera, overlayCanvasUpload, overlayCanvasDemo,
+      // Camera
+      videoElement, isStreamActive, isCameraLoading, handleInitCamera,
+      // Inference
+      targets, isPredicting,
+      // Upload/Demo
+      uploadLoading, analysisResult, demoFrames, demoResult, demoLoadingFrame,
+      handleFileUpload, handleDrop, handleClearResult, triggerUpload, 
+      handleAnalyzeDemoFrame, demoFrameUrl,
+      handleViewportClick,
+      // Computed
+      displayTargets, selectedTarget,
+      // Methods
+      switchTab
+    };
   }
 };
 </script>
@@ -459,7 +537,7 @@ export default {
 .nav-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .nav-item.active { background: #047857; color: #fff; box-shadow: 0 4px 12px rgba(4,120,87,0.4); }
 
-.nav-label { display: none; } /* Hide labels in slim sidebar */
+.nav-label { display: none; }
 
 .status-indicator { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; }
 .status-indicator.active { background: #10b981; box-shadow: 0 0 8px #10b981; }
@@ -520,18 +598,29 @@ export default {
   justify-content: center;
 }
 
-.source-feed { max-width: 100%; max-height: 100%; }
+.source-feed { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-.hud-overlay { position: absolute; inset: 0; pointer-events: none; }
-
-.detection-box {
+.overlay-canvas {
   position: absolute;
-  width: 40px; height: 40px;
-  border: 2px solid #ef4444;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 关键：确保 Canvas 缩放逻辑与图片完全一致 */
+  pointer-events: none;
+  z-index: 4;
 }
 
-.box-label { background: #ef4444; color: #fff; font-size: 10px; padding: 2px 4px; position: absolute; top: -18px; left: -2px; }
+.hud-overlay { 
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto; 
+  z-index: 5; 
+  cursor: crosshair;
+}
 
 /* ===== Camera Placeholder ===== */
 .camera-placeholder {
@@ -590,7 +679,8 @@ export default {
 .icon-circle { width: 80px; height: 80px; border-radius: 50%; background: #fff; border: 2px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: #94a3b8; }
 .btn-primary { background: #047857; color: #fff; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 16px; }
 .result-display { max-width: 100%; max-height: 100%; object-fit: contain; }
-.btn-reset { position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.6); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; }
+.btn-reset { position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.6); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; z-index: 10; cursor: pointer; }
+.btn-reset:hover { background: rgba(0,0,0,0.8); }
 
 /* ===== Info Panel ===== */
 .info-panel {
@@ -631,5 +721,9 @@ export default {
 .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .thumb-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; opacity: 0; transition: 0.2s; }
 .gallery-thumb:hover .thumb-overlay { opacity: 1; }
-</style>
 
+.btn-reset-abs { position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.6); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; z-index: 10; }
+.btn-reset-abs:hover { background: rgba(0,0,0,0.8); }
+.loader-sm { width: 16px; height: 16px; border: 2px solid #fff; border-bottom-color: transparent; border-radius: 50%; display: inline-block; animation: rotation 1s linear infinite; }
+@keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>

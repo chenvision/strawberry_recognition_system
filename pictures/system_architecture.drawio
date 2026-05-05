@@ -1,0 +1,75 @@
+<mxfile host="Electron" modified="2024-04-21T00:00:00.000Z" agent="Mozilla/5.0" version="21.6.8" type="device">
+  <diagram name="System Architecture" id="sys_arch">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Frontend Container -->
+        <mxCell id="frontend" value="前端展示与交互层 (Vue.js 3)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="280" height="320" as="geometry" />
+        </mxCell>
+        <!-- Frontend Nodes -->
+        <mxCell id="f1" value="摄像头视频流采集&lt;br&gt;(MediaDevices API)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="frontend">
+          <mxGeometry x="40" y="60" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" value="双层 Canvas 渲染引擎&lt;br&gt;(底层视频 + 顶层 3D 投影)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="frontend">
+          <mxGeometry x="40" y="150" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" value="Dashboard 控制台&lt;br&gt;(状态监控与参数展示)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="frontend">
+          <mxGeometry x="40" y="240" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Backend Container -->
+        <mxCell id="backend" value="后端异步推理引擎 (FastAPI)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="480" y="80" width="280" height="320" as="geometry" />
+        </mxCell>
+        <!-- Backend Nodes -->
+        <mxCell id="b1" value="图像预处理管道&lt;br&gt;(Resize + Tensor 转换)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="backend">
+          <mxGeometry x="40" y="60" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" value="神经网络推理核心&lt;br&gt;(Darknet-19 + Transformer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="backend">
+          <mxGeometry x="40" y="150" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" value="PnP 几何位姿解算器&lt;br&gt;(EPnP 算法生成 R, T)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="backend">
+          <mxGeometry x="40" y="240" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Edges inside -->
+        <mxCell id="e_f1_f2" edge="1" parent="frontend" source="f1" target="f2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_f2_f3" edge="1" parent="frontend" source="f2" target="f3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_b1_b2" edge="1" parent="backend" source="b1" target="b2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_b2_b3" edge="1" parent="backend" source="b2" target="b3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Cross Edges -->
+        <mxCell id="e_req" value="HTTP POST /api/predict&lt;br&gt;(图像帧)" edge="1" parent="1" source="f1" target="b1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+             <mxPoint x="420" y="170" as="sourcePoint"/>
+             <mxPoint x="520" y="170" as="targetPoint"/>
+             <Array as="points">
+               <mxPoint x="420" y="170"/>
+               <mxPoint x="420" y="170"/>
+             </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_res" value="JSON Payload&lt;br&gt;(2D点集, 3D坐标轴, 尺寸)" edge="1" parent="1" source="b3" target="f2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+             <mxPoint x="520" y="350" as="sourcePoint"/>
+             <mxPoint x="420" y="260" as="targetPoint"/>
+             <Array as="points">
+               <mxPoint x="420" y="350"/>
+               <mxPoint x="420" y="260"/>
+             </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

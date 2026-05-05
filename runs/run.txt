@@ -1,0 +1,1227 @@
+10.4s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+10.4s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+10.4s 3 0.00s - to python to disable frozen modules.
+10.4s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+11.3s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+11.3s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+11.3s 7 0.00s - to python to disable frozen modules.
+11.3s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+27.7s 9 >>> Initializing Kaggle Training Environment (Grid-based Multi-Object)...
+27.7s 10 Using device: cuda
+27.7s 11 Loading dataset from /kaggle/input/datasets/chenvision/straw6d-raw/...
+27.7s 12 Dataset size: 2328 samples
+27.7s 13 Building Darknet model (Grid-based)...
+28.2s 14 >>> Start Training...
+66.2s 15 [Epoch 1/300][Batch 50] Loss: 788.4512
+101.4s 16 [Epoch 1/300][Batch 100] Loss: 656.9691
+136.3s 17 ===> Epoch [1/300] Finished. Avg Loss: 742.3781. Time Elapsed: 108.1s
+136.3s 18 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+175.8s 19 [Epoch 2/300][Batch 50] Loss: 694.1935
+214.0s 20 [Epoch 2/300][Batch 100] Loss: 578.7662
+249.1s 21 ===> Epoch [2/300] Finished. Avg Loss: 579.9487. Time Elapsed: 220.7s
+249.1s 22 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+288.5s 23 [Epoch 3/300][Batch 50] Loss: 475.0493
+327.1s 24 [Epoch 3/300][Batch 100] Loss: 401.8733
+362.2s 25 ===> Epoch [3/300] Finished. Avg Loss: 422.7087. Time Elapsed: 333.9s
+362.2s 26 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+401.8s 27 [Epoch 4/300][Batch 50] Loss: 335.4661
+440.3s 28 [Epoch 4/300][Batch 100] Loss: 326.8956
+475.4s 29 ===> Epoch [4/300] Finished. Avg Loss: 342.2260. Time Elapsed: 447.1s
+475.4s 30 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+515.1s 31 [Epoch 5/300][Batch 50] Loss: 304.4118
+553.6s 32 [Epoch 5/300][Batch 100] Loss: 296.2721
+588.7s 33 ===> Epoch [5/300] Finished. Avg Loss: 289.9850. Time Elapsed: 560.4s
+588.7s 34 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+628.4s 35 [Epoch 6/300][Batch 50] Loss: 236.0552
+666.9s 36 [Epoch 6/300][Batch 100] Loss: 225.6321
+702.0s 37 ===> Epoch [6/300] Finished. Avg Loss: 242.5035. Time Elapsed: 673.7s
+702.0s 38 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+741.7s 39 [Epoch 7/300][Batch 50] Loss: 231.5677
+780.2s 40 [Epoch 7/300][Batch 100] Loss: 207.2119
+815.3s 41 ===> Epoch [7/300] Finished. Avg Loss: 211.0605. Time Elapsed: 787.0s
+815.3s 42 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+855.0s 43 [Epoch 8/300][Batch 50] Loss: 172.6397
+893.5s 44 [Epoch 8/300][Batch 100] Loss: 155.3583
+928.6s 45 ===> Epoch [8/300] Finished. Avg Loss: 168.5619. Time Elapsed: 900.3s
+928.6s 46 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+968.3s 47 [Epoch 9/300][Batch 50] Loss: 135.2287
+1006.8s 48 [Epoch 9/300][Batch 100] Loss: 135.6702
+1041.9s 49 ===> Epoch [9/300] Finished. Avg Loss: 133.6389. Time Elapsed: 1013.6s
+1041.9s 50 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1081.6s 51 [Epoch 10/300][Batch 50] Loss: 113.6071
+1120.1s 52 [Epoch 10/300][Batch 100] Loss: 91.8123
+1155.0s 53 ===> Epoch [10/300] Finished. Avg Loss: 111.2306. Time Elapsed: 1126.7s
+1155.0s 54 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1194.7s 55 [Epoch 11/300][Batch 50] Loss: 101.8309
+1233.1s 56 [Epoch 11/300][Batch 100] Loss: 97.3460
+1268.1s 57 ===> Epoch [11/300] Finished. Avg Loss: 98.8946. Time Elapsed: 1239.7s
+1268.1s 58 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1307.8s 59 [Epoch 12/300][Batch 50] Loss: 99.4862
+1346.3s 60 [Epoch 12/300][Batch 100] Loss: 87.2898
+1381.3s 61 ===> Epoch [12/300] Finished. Avg Loss: 91.0628. Time Elapsed: 1353.0s
+1381.3s 62 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1421.0s 63 [Epoch 13/300][Batch 50] Loss: 81.1506
+1459.5s 64 [Epoch 13/300][Batch 100] Loss: 81.3697
+1494.6s 65 ===> Epoch [13/300] Finished. Avg Loss: 83.3220. Time Elapsed: 1466.3s
+1494.6s 66 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1534.4s 67 [Epoch 14/300][Batch 50] Loss: 71.4050
+1572.9s 68 [Epoch 14/300][Batch 100] Loss: 84.0226
+1608.0s 69 ===> Epoch [14/300] Finished. Avg Loss: 78.5688. Time Elapsed: 1579.7s
+1608.0s 70 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1647.8s 71 [Epoch 15/300][Batch 50] Loss: 61.1486
+1686.3s 72 [Epoch 15/300][Batch 100] Loss: 85.1757
+1721.4s 73 ===> Epoch [15/300] Finished. Avg Loss: 76.4975. Time Elapsed: 1693.1s
+1721.4s 74 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1761.1s 75 [Epoch 16/300][Batch 50] Loss: 74.4672
+1799.6s 76 [Epoch 16/300][Batch 100] Loss: 75.3860
+1834.7s 77 ===> Epoch [16/300] Finished. Avg Loss: 71.6785. Time Elapsed: 1806.4s
+1834.7s 78 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1874.4s 79 [Epoch 17/300][Batch 50] Loss: 61.9226
+1912.9s 80 [Epoch 17/300][Batch 100] Loss: 69.6955
+1948.0s 81 ===> Epoch [17/300] Finished. Avg Loss: 69.6793. Time Elapsed: 1919.7s
+1948.0s 82 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+1987.7s 83 [Epoch 18/300][Batch 50] Loss: 63.4849
+2026.2s 84 [Epoch 18/300][Batch 100] Loss: 73.0243
+2061.3s 85 ===> Epoch [18/300] Finished. Avg Loss: 66.5308. Time Elapsed: 2033.0s
+2061.3s 86 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+2101.0s 87 [Epoch 19/300][Batch 50] Loss: 59.8982
+2139.5s 88 [Epoch 19/300][Batch 100] Loss: 73.5311
+2174.7s 89 ===> Epoch [19/300] Finished. Avg Loss: 64.4672. Time Elapsed: 2146.3s
+2174.7s 90 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+2214.9s 91 [Epoch 20/300][Batch 50] Loss: 58.5448
+2253.4s 92 [Epoch 20/300][Batch 100] Loss: 59.6451
+2288.5s 93 ===> Epoch [20/300] Finished. Avg Loss: 62.7748. Time Elapsed: 2260.2s
+2288.5s 94 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+2328.3s 95 [Epoch 21/300][Batch 50] Loss: 62.3055
+2366.8s 96 [Epoch 21/300][Batch 100] Loss: 56.5566
+2401.7s 97 ===> Epoch [21/300] Finished. Avg Loss: 58.8189. Time Elapsed: 2373.4s
+2401.7s 98 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+2441.3s 99 [Epoch 22/300][Batch 50] Loss: 54.3802
+2479.9s 100 [Epoch 22/300][Batch 100] Loss: 54.7330
+2515.0s 101 ===> Epoch [22/300] Finished. Avg Loss: 57.4280. Time Elapsed: 2486.6s
+2515.0s 102 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+2554.9s 103 [Epoch 23/300][Batch 50] Loss: 56.7612
+2593.4s 104 [Epoch 23/300][Batch 100] Loss: 55.5147
+2628.6s 105 ===> Epoch [23/300] Finished. Avg Loss: 56.3527. Time Elapsed: 2600.3s
+2628.6s 106 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+2668.2s 107 [Epoch 24/300][Batch 50] Loss: 51.1136
+2706.7s 108 [Epoch 24/300][Batch 100] Loss: 53.1539
+2741.8s 109 ===> Epoch [24/300] Finished. Avg Loss: 53.9387. Time Elapsed: 2713.5s
+2741.8s 110 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+2781.4s 111 [Epoch 25/300][Batch 50] Loss: 51.5959
+2819.9s 112 [Epoch 25/300][Batch 100] Loss: 51.8014
+2855.0s 113 ===> Epoch [25/300] Finished. Avg Loss: 51.9596. Time Elapsed: 2826.7s
+2855.0s 114 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+2894.7s 115 [Epoch 26/300][Batch 50] Loss: 51.9955
+2933.2s 116 [Epoch 26/300][Batch 100] Loss: 49.2868
+2968.3s 117 ===> Epoch [26/300] Finished. Avg Loss: 50.5236. Time Elapsed: 2940.0s
+2968.3s 118 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3008.2s 119 [Epoch 27/300][Batch 50] Loss: 53.2054
+3046.8s 120 [Epoch 27/300][Batch 100] Loss: 49.5259
+3081.6s 121 ===> Epoch [27/300] Finished. Avg Loss: 50.5470. Time Elapsed: 3053.3s
+3081.6s 122 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3121.2s 123 [Epoch 28/300][Batch 50] Loss: 47.4476
+3159.8s 124 [Epoch 28/300][Batch 100] Loss: 50.0390
+3195.0s 125 ===> Epoch [28/300] Finished. Avg Loss: 47.9775. Time Elapsed: 3166.6s
+3195.0s 126 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3234.7s 127 [Epoch 29/300][Batch 50] Loss: 50.6394
+3273.2s 128 [Epoch 29/300][Batch 100] Loss: 40.1919
+3308.3s 129 ===> Epoch [29/300] Finished. Avg Loss: 46.5989. Time Elapsed: 3280.0s
+3308.3s 130 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3347.9s 131 [Epoch 30/300][Batch 50] Loss: 42.9142
+3386.4s 132 [Epoch 30/300][Batch 100] Loss: 50.7105
+3421.5s 133 ===> Epoch [30/300] Finished. Avg Loss: 45.6417. Time Elapsed: 3393.2s
+3421.5s 134 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3461.2s 135 [Epoch 31/300][Batch 50] Loss: 52.3548
+3499.7s 136 [Epoch 31/300][Batch 100] Loss: 39.1211
+3534.8s 137 ===> Epoch [31/300] Finished. Avg Loss: 43.8286. Time Elapsed: 3506.5s
+3534.8s 138 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3575.7s 139 [Epoch 32/300][Batch 50] Loss: 37.2325
+3614.2s 140 [Epoch 32/300][Batch 100] Loss: 45.0293
+3649.3s 141 ===> Epoch [32/300] Finished. Avg Loss: 42.2043. Time Elapsed: 3620.9s
+3649.3s 142 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3689.0s 143 [Epoch 33/300][Batch 50] Loss: 36.8832
+3727.5s 144 [Epoch 33/300][Batch 100] Loss: 47.1794
+3762.7s 145 ===> Epoch [33/300] Finished. Avg Loss: 41.7776. Time Elapsed: 3734.3s
+3762.7s 146 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3802.4s 147 [Epoch 34/300][Batch 50] Loss: 43.2656
+3840.9s 148 [Epoch 34/300][Batch 100] Loss: 38.0398
+3876.1s 149 ===> Epoch [34/300] Finished. Avg Loss: 41.6619. Time Elapsed: 3847.7s
+3876.1s 150 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+3915.8s 151 [Epoch 35/300][Batch 50] Loss: 36.9544
+3954.3s 152 [Epoch 35/300][Batch 100] Loss: 37.5349
+3989.4s 153 ===> Epoch [35/300] Finished. Avg Loss: 40.1530. Time Elapsed: 3961.0s
+3989.4s 154 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4030.1s 155 [Epoch 36/300][Batch 50] Loss: 35.7603
+4068.6s 156 [Epoch 36/300][Batch 100] Loss: 34.2011
+4103.5s 157 ===> Epoch [36/300] Finished. Avg Loss: 38.5981. Time Elapsed: 4075.2s
+4103.5s 158 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4143.2s 159 [Epoch 37/300][Batch 50] Loss: 40.3531
+4181.8s 160 [Epoch 37/300][Batch 100] Loss: 37.0511
+4217.0s 161 ===> Epoch [37/300] Finished. Avg Loss: 37.2249. Time Elapsed: 4188.6s
+4217.0s 162 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4256.7s 163 [Epoch 38/300][Batch 50] Loss: 37.9635
+4295.2s 164 [Epoch 38/300][Batch 100] Loss: 37.6353
+4330.3s 165 ===> Epoch [38/300] Finished. Avg Loss: 36.2298. Time Elapsed: 4301.9s
+4330.3s 166 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4370.0s 167 [Epoch 39/300][Batch 50] Loss: 33.8467
+4408.5s 168 [Epoch 39/300][Batch 100] Loss: 35.9482
+4443.6s 169 ===> Epoch [39/300] Finished. Avg Loss: 35.7809. Time Elapsed: 4415.2s
+4443.6s 170 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4483.2s 171 [Epoch 40/300][Batch 50] Loss: 33.1978
+4521.7s 172 [Epoch 40/300][Batch 100] Loss: 35.8772
+4556.8s 173 ===> Epoch [40/300] Finished. Avg Loss: 35.3230. Time Elapsed: 4528.5s
+4556.8s 174 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4597.2s 175 [Epoch 41/300][Batch 50] Loss: 32.4310
+4635.7s 176 [Epoch 41/300][Batch 100] Loss: 39.8119
+4670.7s 177 ===> Epoch [41/300] Finished. Avg Loss: 34.5591. Time Elapsed: 4642.4s
+4670.7s 178 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4710.6s 179 [Epoch 42/300][Batch 50] Loss: 33.4849
+4749.1s 180 [Epoch 42/300][Batch 100] Loss: 36.2878
+4784.2s 181 ===> Epoch [42/300] Finished. Avg Loss: 33.8326. Time Elapsed: 4755.9s
+4784.2s 182 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4823.9s 183 [Epoch 43/300][Batch 50] Loss: 37.0945
+4862.4s 184 [Epoch 43/300][Batch 100] Loss: 30.6986
+4897.5s 185 ===> Epoch [43/300] Finished. Avg Loss: 32.8559. Time Elapsed: 4869.2s
+4897.5s 186 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+4937.2s 187 [Epoch 44/300][Batch 50] Loss: 31.4980
+4975.7s 188 [Epoch 44/300][Batch 100] Loss: 32.2104
+5010.8s 189 ===> Epoch [44/300] Finished. Avg Loss: 33.0398. Time Elapsed: 4982.5s
+5010.8s 190 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5050.6s 191 [Epoch 45/300][Batch 50] Loss: 29.6840
+5089.1s 192 [Epoch 45/300][Batch 100] Loss: 31.0227
+5124.2s 193 ===> Epoch [45/300] Finished. Avg Loss: 31.6686. Time Elapsed: 5095.8s
+5124.2s 194 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5163.8s 195 [Epoch 46/300][Batch 50] Loss: 31.4102
+5202.3s 196 [Epoch 46/300][Batch 100] Loss: 32.8787
+5237.4s 197 ===> Epoch [46/300] Finished. Avg Loss: 30.7300. Time Elapsed: 5209.1s
+5237.4s 198 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5277.2s 199 [Epoch 47/300][Batch 50] Loss: 30.3593
+5315.7s 200 [Epoch 47/300][Batch 100] Loss: 28.5863
+5350.8s 201 ===> Epoch [47/300] Finished. Avg Loss: 30.6277. Time Elapsed: 5322.5s
+5350.8s 202 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5390.5s 203 [Epoch 48/300][Batch 50] Loss: 30.6850
+5429.1s 204 [Epoch 48/300][Batch 100] Loss: 32.2310
+5464.2s 205 ===> Epoch [48/300] Finished. Avg Loss: 29.4838. Time Elapsed: 5435.9s
+5464.2s 206 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5503.9s 207 [Epoch 49/300][Batch 50] Loss: 29.8343
+5542.3s 208 [Epoch 49/300][Batch 100] Loss: 30.0323
+5577.2s 209 ===> Epoch [49/300] Finished. Avg Loss: 29.0908. Time Elapsed: 5548.9s
+5577.2s 210 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5616.9s 211 [Epoch 50/300][Batch 50] Loss: 30.1129
+5655.4s 212 [Epoch 50/300][Batch 100] Loss: 28.5720
+5690.4s 213 ===> Epoch [50/300] Finished. Avg Loss: 29.2391. Time Elapsed: 5662.1s
+5690.4s 214 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5730.2s 215 [Epoch 51/300][Batch 50] Loss: 29.8465
+5768.8s 216 [Epoch 51/300][Batch 100] Loss: 24.1642
+5803.7s 217 ===> Epoch [51/300] Finished. Avg Loss: 28.7949. Time Elapsed: 5775.4s
+5803.7s 218 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5843.3s 219 [Epoch 52/300][Batch 50] Loss: 29.7250
+5881.9s 220 [Epoch 52/300][Batch 100] Loss: 29.6013
+5917.0s 221 ===> Epoch [52/300] Finished. Avg Loss: 28.1594. Time Elapsed: 5888.7s
+5917.0s 222 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+5956.7s 223 [Epoch 53/300][Batch 50] Loss: 29.9733
+5995.3s 224 [Epoch 53/300][Batch 100] Loss: 28.1875
+6030.4s 225 ===> Epoch [53/300] Finished. Avg Loss: 26.9954. Time Elapsed: 6002.1s
+6030.4s 226 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6070.1s 227 [Epoch 54/300][Batch 50] Loss: 26.3827
+6108.6s 228 [Epoch 54/300][Batch 100] Loss: 27.1361
+6143.7s 229 ===> Epoch [54/300] Finished. Avg Loss: 27.0772. Time Elapsed: 6115.4s
+6143.7s 230 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6183.3s 231 [Epoch 55/300][Batch 50] Loss: 29.0934
+6221.8s 232 [Epoch 55/300][Batch 100] Loss: 27.1942
+6256.9s 233 ===> Epoch [55/300] Finished. Avg Loss: 26.9071. Time Elapsed: 6228.6s
+6256.9s 234 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6296.4s 235 [Epoch 56/300][Batch 50] Loss: 31.5771
+6334.9s 236 [Epoch 56/300][Batch 100] Loss: 23.0851
+6370.0s 237 ===> Epoch [56/300] Finished. Avg Loss: 25.7418. Time Elapsed: 6341.7s
+6370.0s 238 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6409.7s 239 [Epoch 57/300][Batch 50] Loss: 25.8233
+6448.0s 240 [Epoch 57/300][Batch 100] Loss: 26.5458
+6483.1s 241 ===> Epoch [57/300] Finished. Avg Loss: 25.3475. Time Elapsed: 6454.7s
+6483.1s 242 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6522.8s 243 [Epoch 58/300][Batch 50] Loss: 27.2478
+6561.3s 244 [Epoch 58/300][Batch 100] Loss: 24.5843
+6596.5s 245 ===> Epoch [58/300] Finished. Avg Loss: 24.9484. Time Elapsed: 6568.1s
+6596.5s 246 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6636.0s 247 [Epoch 59/300][Batch 50] Loss: 25.5611
+6674.5s 248 [Epoch 59/300][Batch 100] Loss: 25.0113
+6709.6s 249 ===> Epoch [59/300] Finished. Avg Loss: 25.2090. Time Elapsed: 6681.3s
+6709.6s 250 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6749.4s 251 [Epoch 60/300][Batch 50] Loss: 21.6920
+6787.9s 252 [Epoch 60/300][Batch 100] Loss: 25.0435
+6823.0s 253 ===> Epoch [60/300] Finished. Avg Loss: 24.6278. Time Elapsed: 6794.7s
+6823.0s 254 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6862.7s 255 [Epoch 61/300][Batch 50] Loss: 20.4357
+6901.2s 256 [Epoch 61/300][Batch 100] Loss: 22.8966
+6936.3s 257 ===> Epoch [61/300] Finished. Avg Loss: 24.3399. Time Elapsed: 6908.0s
+6936.3s 258 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+6976.0s 259 [Epoch 62/300][Batch 50] Loss: 23.2287
+7014.5s 260 [Epoch 62/300][Batch 100] Loss: 23.7302
+7049.6s 261 ===> Epoch [62/300] Finished. Avg Loss: 23.4548. Time Elapsed: 7021.3s
+7049.6s 262 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7089.3s 263 [Epoch 63/300][Batch 50] Loss: 22.8408
+7127.8s 264 [Epoch 63/300][Batch 100] Loss: 22.4687
+7162.8s 265 ===> Epoch [63/300] Finished. Avg Loss: 24.1323. Time Elapsed: 7134.5s
+7162.8s 266 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7202.5s 267 [Epoch 64/300][Batch 50] Loss: 28.0064
+7241.0s 268 [Epoch 64/300][Batch 100] Loss: 23.6352
+7276.1s 269 ===> Epoch [64/300] Finished. Avg Loss: 23.9110. Time Elapsed: 7247.8s
+7276.1s 270 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7316.2s 271 [Epoch 65/300][Batch 50] Loss: 23.9316
+7354.6s 272 [Epoch 65/300][Batch 100] Loss: 24.1559
+7389.6s 273 ===> Epoch [65/300] Finished. Avg Loss: 23.5469. Time Elapsed: 7361.3s
+7389.6s 274 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7429.6s 275 [Epoch 66/300][Batch 50] Loss: 22.7810
+7468.2s 276 [Epoch 66/300][Batch 100] Loss: 20.3230
+7503.4s 277 ===> Epoch [66/300] Finished. Avg Loss: 22.2789. Time Elapsed: 7475.0s
+7503.4s 278 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7543.2s 279 [Epoch 67/300][Batch 50] Loss: 19.6362
+7581.6s 280 [Epoch 67/300][Batch 100] Loss: 23.7528
+7616.7s 281 ===> Epoch [67/300] Finished. Avg Loss: 22.2094. Time Elapsed: 7588.4s
+7616.7s 282 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7656.5s 283 [Epoch 68/300][Batch 50] Loss: 20.5609
+7695.0s 284 [Epoch 68/300][Batch 100] Loss: 20.2447
+7730.2s 285 ===> Epoch [68/300] Finished. Avg Loss: 22.3278. Time Elapsed: 7701.9s
+7730.2s 286 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7770.0s 287 [Epoch 69/300][Batch 50] Loss: 23.6691
+7808.2s 288 [Epoch 69/300][Batch 100] Loss: 19.2882
+7843.1s 289 ===> Epoch [69/300] Finished. Avg Loss: 21.9800. Time Elapsed: 7814.8s
+7843.1s 290 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7882.9s 291 [Epoch 70/300][Batch 50] Loss: 22.7986
+7921.4s 292 [Epoch 70/300][Batch 100] Loss: 21.4626
+7956.4s 293 ===> Epoch [70/300] Finished. Avg Loss: 21.7564. Time Elapsed: 7928.1s
+7956.4s 294 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+7996.2s 295 [Epoch 71/300][Batch 50] Loss: 20.0028
+8034.7s 296 [Epoch 71/300][Batch 100] Loss: 23.5179
+8069.7s 297 ===> Epoch [71/300] Finished. Avg Loss: 21.4514. Time Elapsed: 8041.3s
+8069.7s 298 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+8109.5s 299 [Epoch 72/300][Batch 50] Loss: 19.5108
+8147.9s 300 [Epoch 72/300][Batch 100] Loss: 19.4505
+8183.0s 301 ===> Epoch [72/300] Finished. Avg Loss: 21.4882. Time Elapsed: 8154.7s
+8183.0s 302 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+8222.8s 303 [Epoch 73/300][Batch 50] Loss: 19.1576
+8261.3s 304 [Epoch 73/300][Batch 100] Loss: 20.2384
+8296.3s 305 ===> Epoch [73/300] Finished. Avg Loss: 20.7132. Time Elapsed: 8268.0s
+8296.3s 306 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+8336.0s 307 [Epoch 74/300][Batch 50] Loss: 21.2246
+8374.6s 308 [Epoch 74/300][Batch 100] Loss: 20.0540
+8409.7s 309 ===> Epoch [74/300] Finished. Avg Loss: 20.3437. Time Elapsed: 8381.4s
+8409.7s 310 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+8449.5s 311 [Epoch 75/300][Batch 50] Loss: 23.8320
+8488.1s 312 [Epoch 75/300][Batch 100] Loss: 21.3103
+8523.1s 313 ===> Epoch [75/300] Finished. Avg Loss: 20.4252. Time Elapsed: 8494.8s
+8523.1s 314 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+8562.9s 315 [Epoch 76/300][Batch 50] Loss: 22.7150
+8601.5s 316 [Epoch 76/300][Batch 100] Loss: 19.5570
+8636.6s 317 ===> Epoch [76/300] Finished. Avg Loss: 20.4235. Time Elapsed: 8608.3s
+8636.6s 318 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+8676.1s 319 [Epoch 77/300][Batch 50] Loss: 16.3519
+8714.7s 320 [Epoch 77/300][Batch 100] Loss: 22.0035
+8749.7s 321 ===> Epoch [77/300] Finished. Avg Loss: 20.0297. Time Elapsed: 8721.4s
+8749.7s 322 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+8789.5s 323 [Epoch 78/300][Batch 50] Loss: 16.3360
+8827.9s 324 [Epoch 78/300][Batch 100] Loss: 22.2523
+8863.0s 325 ===> Epoch [78/300] Finished. Avg Loss: 19.6172. Time Elapsed: 8834.7s
+8863.0s 326 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+8902.7s 327 [Epoch 79/300][Batch 50] Loss: 18.9529
+8941.2s 328 [Epoch 79/300][Batch 100] Loss: 17.5344
+8976.4s 329 ===> Epoch [79/300] Finished. Avg Loss: 19.2951. Time Elapsed: 8948.0s
+8976.4s 330 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9016.1s 331 [Epoch 80/300][Batch 50] Loss: 17.0209
+9054.4s 332 [Epoch 80/300][Batch 100] Loss: 16.7932
+9089.5s 333 ===> Epoch [80/300] Finished. Avg Loss: 19.3897. Time Elapsed: 9061.1s
+9089.5s 334 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9129.8s 335 [Epoch 81/300][Batch 50] Loss: 19.2811
+9168.3s 336 [Epoch 81/300][Batch 100] Loss: 18.2262
+9203.5s 337 ===> Epoch [81/300] Finished. Avg Loss: 18.9182. Time Elapsed: 9175.2s
+9203.5s 338 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9243.4s 339 [Epoch 82/300][Batch 50] Loss: 17.9592
+9281.8s 340 [Epoch 82/300][Batch 100] Loss: 17.9564
+9316.9s 341 ===> Epoch [82/300] Finished. Avg Loss: 18.7877. Time Elapsed: 9288.5s
+9316.9s 342 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9356.8s 343 [Epoch 83/300][Batch 50] Loss: 19.4969
+9395.3s 344 [Epoch 83/300][Batch 100] Loss: 19.0014
+9430.3s 345 ===> Epoch [83/300] Finished. Avg Loss: 18.7698. Time Elapsed: 9402.0s
+9430.3s 346 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9470.0s 347 [Epoch 84/300][Batch 50] Loss: 18.2445
+9508.5s 348 [Epoch 84/300][Batch 100] Loss: 16.7105
+9543.7s 349 ===> Epoch [84/300] Finished. Avg Loss: 18.9096. Time Elapsed: 9515.4s
+9543.7s 350 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9583.4s 351 [Epoch 85/300][Batch 50] Loss: 19.0435
+9621.9s 352 [Epoch 85/300][Batch 100] Loss: 17.1155
+9657.0s 353 ===> Epoch [85/300] Finished. Avg Loss: 18.0118. Time Elapsed: 9628.6s
+9657.0s 354 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9696.7s 355 [Epoch 86/300][Batch 50] Loss: 17.5732
+9735.3s 356 [Epoch 86/300][Batch 100] Loss: 25.0587
+9770.4s 357 ===> Epoch [86/300] Finished. Avg Loss: 21.4673. Time Elapsed: 9742.0s
+9770.4s 358 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9810.3s 359 [Epoch 87/300][Batch 50] Loss: 17.9139
+9848.8s 360 [Epoch 87/300][Batch 100] Loss: 17.4730
+9883.9s 361 ===> Epoch [87/300] Finished. Avg Loss: 19.2439. Time Elapsed: 9855.6s
+9883.9s 362 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+9923.7s 363 [Epoch 88/300][Batch 50] Loss: 18.4520
+9962.2s 364 [Epoch 88/300][Batch 100] Loss: 17.4096
+9997.2s 365 ===> Epoch [88/300] Finished. Avg Loss: 18.2357. Time Elapsed: 9968.8s
+9997.2s 366 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10036.9s 367 [Epoch 89/300][Batch 50] Loss: 20.2891
+10075.4s 368 [Epoch 89/300][Batch 100] Loss: 15.3771
+10110.5s 369 ===> Epoch [89/300] Finished. Avg Loss: 18.2786. Time Elapsed: 10082.2s
+10110.5s 370 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10150.3s 371 [Epoch 90/300][Batch 50] Loss: 17.3071
+10188.8s 372 [Epoch 90/300][Batch 100] Loss: 17.5353
+10223.9s 373 ===> Epoch [90/300] Finished. Avg Loss: 17.6904. Time Elapsed: 10195.6s
+10223.9s 374 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10263.7s 375 [Epoch 91/300][Batch 50] Loss: 19.1868
+10302.2s 376 [Epoch 91/300][Batch 100] Loss: 15.0385
+10337.3s 377 ===> Epoch [91/300] Finished. Avg Loss: 16.6957. Time Elapsed: 10309.0s
+10337.3s 378 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10377.1s 379 [Epoch 92/300][Batch 50] Loss: 15.8097
+10415.6s 380 [Epoch 92/300][Batch 100] Loss: 16.0792
+10450.8s 381 ===> Epoch [92/300] Finished. Avg Loss: 16.9131. Time Elapsed: 10422.5s
+10450.8s 382 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10490.5s 383 [Epoch 93/300][Batch 50] Loss: 16.4579
+10528.9s 384 [Epoch 93/300][Batch 100] Loss: 19.2613
+10564.0s 385 ===> Epoch [93/300] Finished. Avg Loss: 16.8120. Time Elapsed: 10535.7s
+10564.0s 386 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10603.7s 387 [Epoch 94/300][Batch 50] Loss: 17.1360
+10642.2s 388 [Epoch 94/300][Batch 100] Loss: 15.3424
+10677.2s 389 ===> Epoch [94/300] Finished. Avg Loss: 16.8111. Time Elapsed: 10648.9s
+10677.2s 390 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10718.2s 391 [Epoch 95/300][Batch 50] Loss: 15.7195
+10756.5s 392 [Epoch 95/300][Batch 100] Loss: 14.5415
+10791.6s 393 ===> Epoch [95/300] Finished. Avg Loss: 16.2684. Time Elapsed: 10763.3s
+10791.6s 394 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10831.4s 395 [Epoch 96/300][Batch 50] Loss: 17.8704
+10869.8s 396 [Epoch 96/300][Batch 100] Loss: 16.2961
+10904.9s 397 ===> Epoch [96/300] Finished. Avg Loss: 17.0685. Time Elapsed: 10876.5s
+10904.9s 398 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+10944.6s 399 [Epoch 97/300][Batch 50] Loss: 16.5208
+10983.2s 400 [Epoch 97/300][Batch 100] Loss: 14.3388
+11018.1s 401 ===> Epoch [97/300] Finished. Avg Loss: 16.1356. Time Elapsed: 10989.7s
+11018.1s 402 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11057.9s 403 [Epoch 98/300][Batch 50] Loss: 15.5211
+11096.3s 404 [Epoch 98/300][Batch 100] Loss: 15.6565
+11131.4s 405 ===> Epoch [98/300] Finished. Avg Loss: 16.2922. Time Elapsed: 11103.0s
+11131.4s 406 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11171.3s 407 [Epoch 99/300][Batch 50] Loss: 15.2525
+11209.7s 408 [Epoch 99/300][Batch 100] Loss: 17.4570
+11244.8s 409 ===> Epoch [99/300] Finished. Avg Loss: 16.3846. Time Elapsed: 11216.5s
+11244.8s 410 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11284.8s 411 [Epoch 100/300][Batch 50] Loss: 16.2919
+11323.3s 412 [Epoch 100/300][Batch 100] Loss: 14.3161
+11358.4s 413 ===> Epoch [100/300] Finished. Avg Loss: 15.8367. Time Elapsed: 11330.1s
+11358.4s 414 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11398.1s 415 [Epoch 101/300][Batch 50] Loss: 17.4204
+11436.5s 416 [Epoch 101/300][Batch 100] Loss: 16.3453
+11471.6s 417 ===> Epoch [101/300] Finished. Avg Loss: 15.9650. Time Elapsed: 11443.3s
+11471.6s 418 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11511.4s 419 [Epoch 102/300][Batch 50] Loss: 19.9726
+11549.9s 420 [Epoch 102/300][Batch 100] Loss: 15.2064
+11585.0s 421 ===> Epoch [102/300] Finished. Avg Loss: 15.1939. Time Elapsed: 11556.7s
+11585.0s 422 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11624.9s 423 [Epoch 103/300][Batch 50] Loss: 14.3420
+11663.4s 424 [Epoch 103/300][Batch 100] Loss: 16.3050
+11698.5s 425 ===> Epoch [103/300] Finished. Avg Loss: 14.9715. Time Elapsed: 11670.2s
+11698.5s 426 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11738.4s 427 [Epoch 104/300][Batch 50] Loss: 15.0925
+11777.0s 428 [Epoch 104/300][Batch 100] Loss: 14.0933
+11812.1s 429 ===> Epoch [104/300] Finished. Avg Loss: 15.0408. Time Elapsed: 11783.7s
+11812.1s 430 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11852.0s 431 [Epoch 105/300][Batch 50] Loss: 15.5546
+11890.5s 432 [Epoch 105/300][Batch 100] Loss: 15.1231
+11925.5s 433 ===> Epoch [105/300] Finished. Avg Loss: 15.1288. Time Elapsed: 11897.1s
+11925.5s 434 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+11965.1s 435 [Epoch 106/300][Batch 50] Loss: 18.0924
+12003.6s 436 [Epoch 106/300][Batch 100] Loss: 17.2421
+12038.7s 437 ===> Epoch [106/300] Finished. Avg Loss: 15.4955. Time Elapsed: 12010.4s
+12038.7s 438 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12078.5s 439 [Epoch 107/300][Batch 50] Loss: 16.6737
+12117.1s 440 [Epoch 107/300][Batch 100] Loss: 14.3719
+12152.1s 441 ===> Epoch [107/300] Finished. Avg Loss: 14.6289. Time Elapsed: 12123.7s
+12152.1s 442 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12191.7s 443 [Epoch 108/300][Batch 50] Loss: 14.3378
+12230.2s 444 [Epoch 108/300][Batch 100] Loss: 12.7301
+12265.3s 445 ===> Epoch [108/300] Finished. Avg Loss: 14.6594. Time Elapsed: 12237.0s
+12265.3s 446 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12305.0s 447 [Epoch 109/300][Batch 50] Loss: 14.5410
+12343.5s 448 [Epoch 109/300][Batch 100] Loss: 13.8825
+12378.7s 449 ===> Epoch [109/300] Finished. Avg Loss: 14.8684. Time Elapsed: 12350.3s
+12378.7s 450 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12418.7s 451 [Epoch 110/300][Batch 50] Loss: 14.8824
+12457.2s 452 [Epoch 110/300][Batch 100] Loss: 16.2113
+12492.3s 453 ===> Epoch [110/300] Finished. Avg Loss: 14.5127. Time Elapsed: 12464.0s
+12492.3s 454 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12532.0s 455 [Epoch 111/300][Batch 50] Loss: 16.5740
+12570.5s 456 [Epoch 111/300][Batch 100] Loss: 13.0094
+12605.6s 457 ===> Epoch [111/300] Finished. Avg Loss: 14.6121. Time Elapsed: 12577.3s
+12605.6s 458 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12645.3s 459 [Epoch 112/300][Batch 50] Loss: 12.3875
+12683.8s 460 [Epoch 112/300][Batch 100] Loss: 18.4030
+12718.7s 461 ===> Epoch [112/300] Finished. Avg Loss: 14.7384. Time Elapsed: 12690.4s
+12718.7s 462 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12758.4s 463 [Epoch 113/300][Batch 50] Loss: 12.5783
+12797.1s 464 [Epoch 113/300][Batch 100] Loss: 15.3021
+12832.2s 465 ===> Epoch [113/300] Finished. Avg Loss: 14.0703. Time Elapsed: 12803.8s
+12832.2s 466 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12871.8s 467 [Epoch 114/300][Batch 50] Loss: 12.8555
+12910.1s 468 [Epoch 114/300][Batch 100] Loss: 13.7080
+12945.0s 469 ===> Epoch [114/300] Finished. Avg Loss: 13.5812. Time Elapsed: 12916.7s
+12945.0s 470 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+12984.7s 471 [Epoch 115/300][Batch 50] Loss: 14.8575
+13023.2s 472 [Epoch 115/300][Batch 100] Loss: 13.3452
+13058.3s 473 ===> Epoch [115/300] Finished. Avg Loss: 14.1408. Time Elapsed: 13030.0s
+13058.3s 474 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+13098.0s 475 [Epoch 116/300][Batch 50] Loss: 14.2177
+13136.5s 476 [Epoch 116/300][Batch 100] Loss: 15.4027
+13171.6s 477 ===> Epoch [116/300] Finished. Avg Loss: 14.1653. Time Elapsed: 13143.2s
+13171.6s 478 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+13211.5s 479 [Epoch 117/300][Batch 50] Loss: 13.5926
+13250.0s 480 [Epoch 117/300][Batch 100] Loss: 13.0922
+13285.1s 481 ===> Epoch [117/300] Finished. Avg Loss: 13.6329. Time Elapsed: 13256.8s
+13285.1s 482 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+13325.0s 483 [Epoch 118/300][Batch 50] Loss: 15.5781
+13363.5s 484 [Epoch 118/300][Batch 100] Loss: 14.0974
+13398.4s 485 ===> Epoch [118/300] Finished. Avg Loss: 13.5937. Time Elapsed: 13370.1s
+13398.4s 486 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+13438.0s 487 [Epoch 119/300][Batch 50] Loss: 18.2202
+13476.6s 488 [Epoch 119/300][Batch 100] Loss: 13.4425
+13511.7s 489 ===> Epoch [119/300] Finished. Avg Loss: 14.5401. Time Elapsed: 13483.3s
+13511.7s 490 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+13551.4s 491 [Epoch 120/300][Batch 50] Loss: 16.8314
+13589.8s 492 [Epoch 120/300][Batch 100] Loss: 13.0935
+13624.9s 493 ===> Epoch [120/300] Finished. Avg Loss: 13.4854. Time Elapsed: 13596.6s
+13624.9s 494 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+13664.7s 495 [Epoch 121/300][Batch 50] Loss: 11.4959
+13703.2s 496 [Epoch 121/300][Batch 100] Loss: 11.7815
+13738.3s 497 ===> Epoch [121/300] Finished. Avg Loss: 13.5890. Time Elapsed: 13709.9s
+13738.3s 498 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+13777.8s 499 [Epoch 122/300][Batch 50] Loss: 13.4920
+13816.4s 500 [Epoch 122/300][Batch 100] Loss: 13.2601
+13851.4s 501 ===> Epoch [122/300] Finished. Avg Loss: 13.6832. Time Elapsed: 13823.1s
+13851.4s 502 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+13891.2s 503 [Epoch 123/300][Batch 50] Loss: 12.2505
+13929.7s 504 [Epoch 123/300][Batch 100] Loss: 11.4352
+13964.7s 505 ===> Epoch [123/300] Finished. Avg Loss: 13.4309. Time Elapsed: 13936.3s
+13964.7s 506 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14004.3s 507 [Epoch 124/300][Batch 50] Loss: 12.3195
+14042.8s 508 [Epoch 124/300][Batch 100] Loss: 12.1580
+14077.6s 509 ===> Epoch [124/300] Finished. Avg Loss: 13.0998. Time Elapsed: 14049.3s
+14077.6s 510 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14117.4s 511 [Epoch 125/300][Batch 50] Loss: 13.9248
+14156.0s 512 [Epoch 125/300][Batch 100] Loss: 11.6756
+14191.1s 513 ===> Epoch [125/300] Finished. Avg Loss: 12.9728. Time Elapsed: 14162.7s
+14191.1s 514 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14230.6s 515 [Epoch 126/300][Batch 50] Loss: 12.5593
+14269.1s 516 [Epoch 126/300][Batch 100] Loss: 13.5459
+14304.2s 517 ===> Epoch [126/300] Finished. Avg Loss: 12.9061. Time Elapsed: 14275.9s
+14304.2s 518 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14344.0s 519 [Epoch 127/300][Batch 50] Loss: 15.5484
+14382.4s 520 [Epoch 127/300][Batch 100] Loss: 14.1623
+14417.6s 521 ===> Epoch [127/300] Finished. Avg Loss: 12.8331. Time Elapsed: 14389.2s
+14417.6s 522 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14457.3s 523 [Epoch 128/300][Batch 50] Loss: 12.9378
+14495.8s 524 [Epoch 128/300][Batch 100] Loss: 12.9388
+14531.0s 525 ===> Epoch [128/300] Finished. Avg Loss: 12.9879. Time Elapsed: 14502.6s
+14531.0s 526 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14570.7s 527 [Epoch 129/300][Batch 50] Loss: 12.9184
+14609.2s 528 [Epoch 129/300][Batch 100] Loss: 12.2778
+14644.4s 529 ===> Epoch [129/300] Finished. Avg Loss: 12.7975. Time Elapsed: 14616.0s
+14644.4s 530 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14684.0s 531 [Epoch 130/300][Batch 50] Loss: 13.3541
+14722.6s 532 [Epoch 130/300][Batch 100] Loss: 10.8563
+14757.7s 533 ===> Epoch [130/300] Finished. Avg Loss: 12.3641. Time Elapsed: 14729.3s
+14757.7s 534 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14797.4s 535 [Epoch 131/300][Batch 50] Loss: 10.8755
+14835.9s 536 [Epoch 131/300][Batch 100] Loss: 13.6207
+14871.1s 537 ===> Epoch [131/300] Finished. Avg Loss: 12.5266. Time Elapsed: 14842.7s
+14871.1s 538 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+14911.0s 539 [Epoch 132/300][Batch 50] Loss: 12.9917
+14949.5s 540 [Epoch 132/300][Batch 100] Loss: 13.4882
+14984.6s 541 ===> Epoch [132/300] Finished. Avg Loss: 12.3970. Time Elapsed: 14956.3s
+14984.6s 542 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15024.4s 543 [Epoch 133/300][Batch 50] Loss: 13.6724
+15062.9s 544 [Epoch 133/300][Batch 100] Loss: 11.7908
+15098.0s 545 ===> Epoch [133/300] Finished. Avg Loss: 12.6807. Time Elapsed: 15069.7s
+15098.0s 546 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15137.7s 547 [Epoch 134/300][Batch 50] Loss: 11.9520
+15176.1s 548 [Epoch 134/300][Batch 100] Loss: 14.6670
+15211.1s 549 ===> Epoch [134/300] Finished. Avg Loss: 12.3888. Time Elapsed: 15182.7s
+15211.1s 550 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15250.9s 551 [Epoch 135/300][Batch 50] Loss: 11.3753
+15289.3s 552 [Epoch 135/300][Batch 100] Loss: 13.1382
+15324.3s 553 ===> Epoch [135/300] Finished. Avg Loss: 12.4254. Time Elapsed: 15296.0s
+15324.3s 554 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15364.1s 555 [Epoch 136/300][Batch 50] Loss: 12.8780
+15402.6s 556 [Epoch 136/300][Batch 100] Loss: 14.4669
+15437.7s 557 ===> Epoch [136/300] Finished. Avg Loss: 12.4944. Time Elapsed: 15409.3s
+15437.7s 558 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15477.4s 559 [Epoch 137/300][Batch 50] Loss: 11.9984
+15515.9s 560 [Epoch 137/300][Batch 100] Loss: 12.1297
+15551.0s 561 ===> Epoch [137/300] Finished. Avg Loss: 12.0727. Time Elapsed: 15522.7s
+15551.0s 562 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15590.8s 563 [Epoch 138/300][Batch 50] Loss: 11.6328
+15629.3s 564 [Epoch 138/300][Batch 100] Loss: 13.1925
+15664.4s 565 ===> Epoch [138/300] Finished. Avg Loss: 12.3911. Time Elapsed: 15636.1s
+15664.4s 566 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15704.2s 567 [Epoch 139/300][Batch 50] Loss: 11.6680
+15742.7s 568 [Epoch 139/300][Batch 100] Loss: 13.1029
+15777.9s 569 ===> Epoch [139/300] Finished. Avg Loss: 11.8838. Time Elapsed: 15749.5s
+15777.9s 570 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15817.6s 571 [Epoch 140/300][Batch 50] Loss: 12.4939
+15856.2s 572 [Epoch 140/300][Batch 100] Loss: 12.6797
+15891.3s 573 ===> Epoch [140/300] Finished. Avg Loss: 11.9187. Time Elapsed: 15862.9s
+15891.3s 574 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+15931.1s 575 [Epoch 141/300][Batch 50] Loss: 14.9676
+15969.6s 576 [Epoch 141/300][Batch 100] Loss: 12.4519
+16004.7s 577 ===> Epoch [141/300] Finished. Avg Loss: 11.9934. Time Elapsed: 15976.4s
+16004.7s 578 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16044.5s 579 [Epoch 142/300][Batch 50] Loss: 10.6605
+16083.0s 580 [Epoch 142/300][Batch 100] Loss: 9.9401
+16118.1s 581 ===> Epoch [142/300] Finished. Avg Loss: 11.6653. Time Elapsed: 16089.8s
+16118.1s 582 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16157.8s 583 [Epoch 143/300][Batch 50] Loss: 12.8993
+16196.2s 584 [Epoch 143/300][Batch 100] Loss: 10.4871
+16231.2s 585 ===> Epoch [143/300] Finished. Avg Loss: 11.9411. Time Elapsed: 16202.8s
+16231.2s 586 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16271.1s 587 [Epoch 144/300][Batch 50] Loss: 11.2374
+16309.6s 588 [Epoch 144/300][Batch 100] Loss: 9.4059
+16344.7s 589 ===> Epoch [144/300] Finished. Avg Loss: 11.8074. Time Elapsed: 16316.3s
+16344.7s 590 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16384.4s 591 [Epoch 145/300][Batch 50] Loss: 11.5329
+16422.8s 592 [Epoch 145/300][Batch 100] Loss: 9.1422
+16457.8s 593 ===> Epoch [145/300] Finished. Avg Loss: 11.6490. Time Elapsed: 16429.5s
+16457.8s 594 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16497.5s 595 [Epoch 146/300][Batch 50] Loss: 10.6983
+16536.1s 596 [Epoch 146/300][Batch 100] Loss: 10.3678
+16571.1s 597 ===> Epoch [146/300] Finished. Avg Loss: 11.8589. Time Elapsed: 16542.8s
+16571.1s 598 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16610.8s 599 [Epoch 147/300][Batch 50] Loss: 12.1701
+16649.4s 600 [Epoch 147/300][Batch 100] Loss: 11.8701
+16684.6s 601 ===> Epoch [147/300] Finished. Avg Loss: 11.6078. Time Elapsed: 16656.2s
+16684.6s 602 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16724.4s 603 [Epoch 148/300][Batch 50] Loss: 11.3541
+16762.9s 604 [Epoch 148/300][Batch 100] Loss: 11.9389
+16798.0s 605 ===> Epoch [148/300] Finished. Avg Loss: 11.4107. Time Elapsed: 16769.7s
+16798.0s 606 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16837.7s 607 [Epoch 149/300][Batch 50] Loss: 10.8021
+16876.2s 608 [Epoch 149/300][Batch 100] Loss: 10.8786
+16911.3s 609 ===> Epoch [149/300] Finished. Avg Loss: 11.6342. Time Elapsed: 16882.9s
+16911.3s 610 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+16951.0s 611 [Epoch 150/300][Batch 50] Loss: 11.0929
+16989.5s 612 [Epoch 150/300][Batch 100] Loss: 10.1021
+17024.6s 613 ===> Epoch [150/300] Finished. Avg Loss: 11.1954. Time Elapsed: 16996.2s
+17024.6s 614 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17064.3s 615 [Epoch 151/300][Batch 50] Loss: 10.1757
+17102.9s 616 [Epoch 151/300][Batch 100] Loss: 14.2225
+17137.9s 617 ===> Epoch [151/300] Finished. Avg Loss: 11.3972. Time Elapsed: 17109.5s
+17137.9s 618 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17177.6s 619 [Epoch 152/300][Batch 50] Loss: 12.8229
+17216.0s 620 [Epoch 152/300][Batch 100] Loss: 11.5856
+17252.5s 621 ===> Epoch [152/300] Finished. Avg Loss: 11.4978. Time Elapsed: 17224.1s
+17252.5s 622 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17292.2s 623 [Epoch 153/300][Batch 50] Loss: 11.6353
+17330.4s 624 [Epoch 153/300][Batch 100] Loss: 11.5769
+17365.6s 625 ===> Epoch [153/300] Finished. Avg Loss: 11.3593. Time Elapsed: 17337.2s
+17365.6s 626 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17405.4s 627 [Epoch 154/300][Batch 50] Loss: 11.1333
+17443.9s 628 [Epoch 154/300][Batch 100] Loss: 12.0177
+17479.0s 629 ===> Epoch [154/300] Finished. Avg Loss: 11.0687. Time Elapsed: 17450.6s
+17479.0s 630 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17518.6s 631 [Epoch 155/300][Batch 50] Loss: 11.1389
+17557.1s 632 [Epoch 155/300][Batch 100] Loss: 11.0192
+17592.3s 633 ===> Epoch [155/300] Finished. Avg Loss: 11.2536. Time Elapsed: 17563.9s
+17592.3s 634 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17632.0s 635 [Epoch 156/300][Batch 50] Loss: 11.5448
+17670.6s 636 [Epoch 156/300][Batch 100] Loss: 9.4632
+17705.6s 637 ===> Epoch [156/300] Finished. Avg Loss: 10.7602. Time Elapsed: 17677.3s
+17705.6s 638 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17745.2s 639 [Epoch 157/300][Batch 50] Loss: 12.0805
+17783.8s 640 [Epoch 157/300][Batch 100] Loss: 11.2449
+17818.7s 641 ===> Epoch [157/300] Finished. Avg Loss: 10.9838. Time Elapsed: 17790.4s
+17818.7s 642 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17858.5s 643 [Epoch 158/300][Batch 50] Loss: 11.8631
+17897.0s 644 [Epoch 158/300][Batch 100] Loss: 10.2750
+17932.1s 645 ===> Epoch [158/300] Finished. Avg Loss: 10.6516. Time Elapsed: 17903.8s
+17932.1s 646 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+17971.9s 647 [Epoch 159/300][Batch 50] Loss: 11.2958
+18010.4s 648 [Epoch 159/300][Batch 100] Loss: 12.1748
+18045.5s 649 ===> Epoch [159/300] Finished. Avg Loss: 10.8119. Time Elapsed: 18017.1s
+18045.5s 650 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18085.0s 651 [Epoch 160/300][Batch 50] Loss: 11.1380
+18123.6s 652 [Epoch 160/300][Batch 100] Loss: 9.3904
+18158.7s 653 ===> Epoch [160/300] Finished. Avg Loss: 10.7129. Time Elapsed: 18130.4s
+18158.7s 654 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18198.4s 655 [Epoch 161/300][Batch 50] Loss: 10.9393
+18236.9s 656 [Epoch 161/300][Batch 100] Loss: 12.0348
+18271.9s 657 ===> Epoch [161/300] Finished. Avg Loss: 10.7935. Time Elapsed: 18243.5s
+18271.9s 658 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18311.7s 659 [Epoch 162/300][Batch 50] Loss: 10.2461
+18350.2s 660 [Epoch 162/300][Batch 100] Loss: 9.5899
+18385.2s 661 ===> Epoch [162/300] Finished. Avg Loss: 10.9464. Time Elapsed: 18356.9s
+18385.2s 662 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18425.0s 663 [Epoch 163/300][Batch 50] Loss: 8.8352
+18463.6s 664 [Epoch 163/300][Batch 100] Loss: 10.0365
+18498.7s 665 ===> Epoch [163/300] Finished. Avg Loss: 10.7533. Time Elapsed: 18470.3s
+18498.7s 666 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18538.4s 667 [Epoch 164/300][Batch 50] Loss: 9.6774
+18576.8s 668 [Epoch 164/300][Batch 100] Loss: 11.4672
+18612.0s 669 ===> Epoch [164/300] Finished. Avg Loss: 10.6462. Time Elapsed: 18583.7s
+18612.0s 670 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18651.7s 671 [Epoch 165/300][Batch 50] Loss: 12.0589
+18690.3s 672 [Epoch 165/300][Batch 100] Loss: 11.4973
+18725.4s 673 ===> Epoch [165/300] Finished. Avg Loss: 10.7016. Time Elapsed: 18697.0s
+18725.4s 674 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18765.4s 675 [Epoch 166/300][Batch 50] Loss: 9.6342
+18804.0s 676 [Epoch 166/300][Batch 100] Loss: 10.9503
+18839.0s 677 ===> Epoch [166/300] Finished. Avg Loss: 10.5257. Time Elapsed: 18810.7s
+18839.0s 678 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18878.7s 679 [Epoch 167/300][Batch 50] Loss: 10.0937
+18917.3s 680 [Epoch 167/300][Batch 100] Loss: 8.8083
+18952.4s 681 ===> Epoch [167/300] Finished. Avg Loss: 10.3221. Time Elapsed: 18924.1s
+18952.4s 682 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+18992.9s 683 [Epoch 168/300][Batch 50] Loss: 10.5395
+19031.5s 684 [Epoch 168/300][Batch 100] Loss: 9.5155
+19066.6s 685 ===> Epoch [168/300] Finished. Avg Loss: 10.4939. Time Elapsed: 19038.3s
+19066.6s 686 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+19106.5s 687 [Epoch 169/300][Batch 50] Loss: 10.2206
+19145.0s 688 [Epoch 169/300][Batch 100] Loss: 11.7752
+19180.1s 689 ===> Epoch [169/300] Finished. Avg Loss: 10.4892. Time Elapsed: 19151.8s
+19180.1s 690 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+19219.9s 691 [Epoch 170/300][Batch 50] Loss: 11.9887
+19258.3s 692 [Epoch 170/300][Batch 100] Loss: 10.3006
+19293.4s 693 ===> Epoch [170/300] Finished. Avg Loss: 10.3650. Time Elapsed: 19265.1s
+19293.4s 694 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+19333.2s 695 [Epoch 171/300][Batch 50] Loss: 10.6220
+19371.7s 696 [Epoch 171/300][Batch 100] Loss: 9.1137
+19406.8s 697 ===> Epoch [171/300] Finished. Avg Loss: 9.8822. Time Elapsed: 19378.5s
+19406.8s 698 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+19446.5s 699 [Epoch 172/300][Batch 50] Loss: 8.3835
+19485.0s 700 [Epoch 172/300][Batch 100] Loss: 9.6355
+19520.1s 701 ===> Epoch [172/300] Finished. Avg Loss: 10.0526. Time Elapsed: 19491.8s
+19520.1s 702 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+19559.9s 703 [Epoch 173/300][Batch 50] Loss: 9.5971
+19598.4s 704 [Epoch 173/300][Batch 100] Loss: 11.2100
+19633.5s 705 ===> Epoch [173/300] Finished. Avg Loss: 10.0567. Time Elapsed: 19605.2s
+19633.5s 706 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+19673.2s 707 [Epoch 174/300][Batch 50] Loss: 10.6296
+19711.8s 708 [Epoch 174/300][Batch 100] Loss: 12.0068
+19746.9s 709 ===> Epoch [174/300] Finished. Avg Loss: 10.2921. Time Elapsed: 19718.5s
+19746.9s 710 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+19786.6s 711 [Epoch 175/300][Batch 50] Loss: 11.4756
+19825.1s 712 [Epoch 175/300][Batch 100] Loss: 9.9559
+19860.2s 713 ===> Epoch [175/300] Finished. Avg Loss: 10.2837. Time Elapsed: 19831.9s
+19860.2s 714 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+19900.0s 715 [Epoch 176/300][Batch 50] Loss: 10.7755
+19938.5s 716 [Epoch 176/300][Batch 100] Loss: 11.3996
+19973.7s 717 ===> Epoch [176/300] Finished. Avg Loss: 9.9448. Time Elapsed: 19945.4s
+19973.7s 718 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20013.3s 719 [Epoch 177/300][Batch 50] Loss: 8.9733
+20051.9s 720 [Epoch 177/300][Batch 100] Loss: 11.6360
+20087.0s 721 ===> Epoch [177/300] Finished. Avg Loss: 9.7871. Time Elapsed: 20058.6s
+20087.0s 722 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20126.7s 723 [Epoch 178/300][Batch 50] Loss: 8.3703
+20165.2s 724 [Epoch 178/300][Batch 100] Loss: 9.8259
+20200.4s 725 ===> Epoch [178/300] Finished. Avg Loss: 9.5397. Time Elapsed: 20172.0s
+20200.4s 726 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20240.1s 727 [Epoch 179/300][Batch 50] Loss: 8.4879
+20278.5s 728 [Epoch 179/300][Batch 100] Loss: 9.0904
+20313.4s 729 ===> Epoch [179/300] Finished. Avg Loss: 9.7497. Time Elapsed: 20285.1s
+20313.4s 730 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20353.2s 731 [Epoch 180/300][Batch 50] Loss: 10.7325
+20391.7s 732 [Epoch 180/300][Batch 100] Loss: 7.9460
+20426.5s 733 ===> Epoch [180/300] Finished. Avg Loss: 9.8466. Time Elapsed: 20398.2s
+20426.5s 734 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20466.3s 735 [Epoch 181/300][Batch 50] Loss: 9.6428
+20504.7s 736 [Epoch 181/300][Batch 100] Loss: 8.3867
+20539.6s 737 ===> Epoch [181/300] Finished. Avg Loss: 9.5043. Time Elapsed: 20511.3s
+20539.6s 738 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20579.5s 739 [Epoch 182/300][Batch 50] Loss: 9.0189
+20617.7s 740 [Epoch 182/300][Batch 100] Loss: 10.3525
+20652.7s 741 ===> Epoch [182/300] Finished. Avg Loss: 9.8137. Time Elapsed: 20624.4s
+20652.7s 742 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20692.4s 743 [Epoch 183/300][Batch 50] Loss: 10.8750
+20730.9s 744 [Epoch 183/300][Batch 100] Loss: 9.7221
+20766.0s 745 ===> Epoch [183/300] Finished. Avg Loss: 9.9723. Time Elapsed: 20737.7s
+20766.0s 746 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20805.7s 747 [Epoch 184/300][Batch 50] Loss: 8.7354
+20844.2s 748 [Epoch 184/300][Batch 100] Loss: 9.4567
+20879.4s 749 ===> Epoch [184/300] Finished. Avg Loss: 9.4947. Time Elapsed: 20851.1s
+20879.4s 750 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+20919.1s 751 [Epoch 185/300][Batch 50] Loss: 9.5950
+20957.6s 752 [Epoch 185/300][Batch 100] Loss: 8.3790
+20992.8s 753 ===> Epoch [185/300] Finished. Avg Loss: 9.7161. Time Elapsed: 20964.4s
+20992.8s 754 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21032.6s 755 [Epoch 186/300][Batch 50] Loss: 10.4407
+21071.1s 756 [Epoch 186/300][Batch 100] Loss: 9.6604
+21106.3s 757 ===> Epoch [186/300] Finished. Avg Loss: 9.5622. Time Elapsed: 21077.9s
+21106.3s 758 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21146.0s 759 [Epoch 187/300][Batch 50] Loss: 10.3430
+21184.5s 760 [Epoch 187/300][Batch 100] Loss: 8.3645
+21219.6s 761 ===> Epoch [187/300] Finished. Avg Loss: 9.5245. Time Elapsed: 21191.3s
+21219.6s 762 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21259.4s 763 [Epoch 188/300][Batch 50] Loss: 8.5707
+21297.9s 764 [Epoch 188/300][Batch 100] Loss: 8.4173
+21333.0s 765 ===> Epoch [188/300] Finished. Avg Loss: 9.3530. Time Elapsed: 21304.7s
+21333.0s 766 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21372.8s 767 [Epoch 189/300][Batch 50] Loss: 9.8511
+21411.3s 768 [Epoch 189/300][Batch 100] Loss: 9.7261
+21446.4s 769 ===> Epoch [189/300] Finished. Avg Loss: 9.6644. Time Elapsed: 21418.0s
+21446.4s 770 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21486.2s 771 [Epoch 190/300][Batch 50] Loss: 9.2372
+21524.7s 772 [Epoch 190/300][Batch 100] Loss: 8.8474
+21559.9s 773 ===> Epoch [190/300] Finished. Avg Loss: 9.3703. Time Elapsed: 21531.6s
+21559.9s 774 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21599.6s 775 [Epoch 191/300][Batch 50] Loss: 8.6723
+21637.9s 776 [Epoch 191/300][Batch 100] Loss: 8.5635
+21673.1s 777 ===> Epoch [191/300] Finished. Avg Loss: 9.5803. Time Elapsed: 21644.7s
+21673.1s 778 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21712.9s 779 [Epoch 192/300][Batch 50] Loss: 9.5111
+21751.3s 780 [Epoch 192/300][Batch 100] Loss: 9.6901
+21786.4s 781 ===> Epoch [192/300] Finished. Avg Loss: 9.4030. Time Elapsed: 21758.1s
+21786.4s 782 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21826.1s 783 [Epoch 193/300][Batch 50] Loss: 7.8198
+21864.8s 784 [Epoch 193/300][Batch 100] Loss: 8.1928
+21899.9s 785 ===> Epoch [193/300] Finished. Avg Loss: 9.1517. Time Elapsed: 21871.5s
+21899.9s 786 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+21939.7s 787 [Epoch 194/300][Batch 50] Loss: 10.8910
+21978.3s 788 [Epoch 194/300][Batch 100] Loss: 8.3628
+22013.4s 789 ===> Epoch [194/300] Finished. Avg Loss: 8.8856. Time Elapsed: 21985.0s
+22013.4s 790 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22053.0s 791 [Epoch 195/300][Batch 50] Loss: 8.5495
+22091.3s 792 [Epoch 195/300][Batch 100] Loss: 8.2010
+22126.4s 793 ===> Epoch [195/300] Finished. Avg Loss: 8.7237. Time Elapsed: 22098.1s
+22126.4s 794 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22166.2s 795 [Epoch 196/300][Batch 50] Loss: 9.0167
+22204.7s 796 [Epoch 196/300][Batch 100] Loss: 8.3014
+22239.8s 797 ===> Epoch [196/300] Finished. Avg Loss: 8.7340. Time Elapsed: 22211.4s
+22239.8s 798 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22279.5s 799 [Epoch 197/300][Batch 50] Loss: 8.7570
+22318.0s 800 [Epoch 197/300][Batch 100] Loss: 8.3318
+22353.1s 801 ===> Epoch [197/300] Finished. Avg Loss: 9.1987. Time Elapsed: 22324.7s
+22353.1s 802 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22392.9s 803 [Epoch 198/300][Batch 50] Loss: 10.3310
+22431.4s 804 [Epoch 198/300][Batch 100] Loss: 9.7448
+22466.5s 805 ===> Epoch [198/300] Finished. Avg Loss: 9.5449. Time Elapsed: 22438.1s
+22466.5s 806 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22506.6s 807 [Epoch 199/300][Batch 50] Loss: 10.4807
+22545.1s 808 [Epoch 199/300][Batch 100] Loss: 8.7130
+22580.1s 809 ===> Epoch [199/300] Finished. Avg Loss: 9.0824. Time Elapsed: 22551.8s
+22580.1s 810 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22619.9s 811 [Epoch 200/300][Batch 50] Loss: 10.8437
+22658.5s 812 [Epoch 200/300][Batch 100] Loss: 8.2878
+22693.5s 813 ===> Epoch [200/300] Finished. Avg Loss: 8.9268. Time Elapsed: 22665.2s
+22693.5s 814 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22733.3s 815 [Epoch 201/300][Batch 50] Loss: 8.3928
+22771.8s 816 [Epoch 201/300][Batch 100] Loss: 8.2324
+22806.8s 817 ===> Epoch [201/300] Finished. Avg Loss: 8.8063. Time Elapsed: 22778.5s
+22806.8s 818 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22846.6s 819 [Epoch 202/300][Batch 50] Loss: 8.3241
+22885.1s 820 [Epoch 202/300][Batch 100] Loss: 9.6183
+22920.2s 821 ===> Epoch [202/300] Finished. Avg Loss: 8.8418. Time Elapsed: 22891.8s
+22920.2s 822 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+22960.0s 823 [Epoch 203/300][Batch 50] Loss: 10.3714
+22998.5s 824 [Epoch 203/300][Batch 100] Loss: 8.4680
+23033.6s 825 ===> Epoch [203/300] Finished. Avg Loss: 8.8098. Time Elapsed: 23005.2s
+23033.6s 826 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23073.3s 827 [Epoch 204/300][Batch 50] Loss: 9.5186
+23111.9s 828 [Epoch 204/300][Batch 100] Loss: 9.5293
+23147.0s 829 ===> Epoch [204/300] Finished. Avg Loss: 8.6870. Time Elapsed: 23118.6s
+23147.0s 830 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23186.8s 831 [Epoch 205/300][Batch 50] Loss: 7.6201
+23225.3s 832 [Epoch 205/300][Batch 100] Loss: 7.9563
+23260.4s 833 ===> Epoch [205/300] Finished. Avg Loss: 8.8935. Time Elapsed: 23232.1s
+23260.4s 834 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23300.2s 835 [Epoch 206/300][Batch 50] Loss: 9.7715
+23338.8s 836 [Epoch 206/300][Batch 100] Loss: 8.3620
+23373.9s 837 ===> Epoch [206/300] Finished. Avg Loss: 8.7345. Time Elapsed: 23345.5s
+23373.9s 838 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23413.7s 839 [Epoch 207/300][Batch 50] Loss: 7.8966
+23452.2s 840 [Epoch 207/300][Batch 100] Loss: 9.2689
+23487.3s 841 ===> Epoch [207/300] Finished. Avg Loss: 8.7994. Time Elapsed: 23458.9s
+23487.3s 842 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23527.1s 843 [Epoch 208/300][Batch 50] Loss: 8.5536
+23565.6s 844 [Epoch 208/300][Batch 100] Loss: 9.3716
+23600.7s 845 ===> Epoch [208/300] Finished. Avg Loss: 8.7876. Time Elapsed: 23572.3s
+23600.7s 846 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23640.4s 847 [Epoch 209/300][Batch 50] Loss: 9.2707
+23679.0s 848 [Epoch 209/300][Batch 100] Loss: 8.7950
+23714.2s 849 ===> Epoch [209/300] Finished. Avg Loss: 8.8771. Time Elapsed: 23685.8s
+23714.2s 850 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23754.1s 851 [Epoch 210/300][Batch 50] Loss: 9.3860
+23792.6s 852 [Epoch 210/300][Batch 100] Loss: 7.8072
+23827.8s 853 ===> Epoch [210/300] Finished. Avg Loss: 8.9309. Time Elapsed: 23799.4s
+23827.8s 854 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23867.5s 855 [Epoch 211/300][Batch 50] Loss: 8.6113
+23906.1s 856 [Epoch 211/300][Batch 100] Loss: 8.6155
+23941.3s 857 ===> Epoch [211/300] Finished. Avg Loss: 8.8415. Time Elapsed: 23912.9s
+23941.3s 858 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+23981.1s 859 [Epoch 212/300][Batch 50] Loss: 7.6143
+24019.6s 860 [Epoch 212/300][Batch 100] Loss: 9.0158
+24054.7s 861 ===> Epoch [212/300] Finished. Avg Loss: 8.5323. Time Elapsed: 24026.3s
+24054.7s 862 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+24094.4s 863 [Epoch 213/300][Batch 50] Loss: 8.3659
+24132.9s 864 [Epoch 213/300][Batch 100] Loss: 7.9579
+24168.1s 865 ===> Epoch [213/300] Finished. Avg Loss: 8.2483. Time Elapsed: 24139.7s
+24168.1s 866 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+24207.9s 867 [Epoch 214/300][Batch 50] Loss: 8.2214
+24246.6s 868 [Epoch 214/300][Batch 100] Loss: 8.0071
+24281.6s 869 ===> Epoch [214/300] Finished. Avg Loss: 8.4986. Time Elapsed: 24253.3s
+24281.6s 870 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+24321.4s 871 [Epoch 215/300][Batch 50] Loss: 8.7676
+24360.0s 872 [Epoch 215/300][Batch 100] Loss: 9.7492
+24395.1s 873 ===> Epoch [215/300] Finished. Avg Loss: 8.5913. Time Elapsed: 24366.7s
+24395.1s 874 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+24434.9s 875 [Epoch 216/300][Batch 50] Loss: 9.6698
+24473.4s 876 [Epoch 216/300][Batch 100] Loss: 8.5692
+24508.5s 877 ===> Epoch [216/300] Finished. Avg Loss: 8.7257. Time Elapsed: 24480.2s
+24508.5s 878 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+24548.4s 879 [Epoch 217/300][Batch 50] Loss: 9.3217
+24586.9s 880 [Epoch 217/300][Batch 100] Loss: 8.1848
+24622.0s 881 ===> Epoch [217/300] Finished. Avg Loss: 8.6318. Time Elapsed: 24593.6s
+24622.0s 882 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+24661.8s 883 [Epoch 218/300][Batch 50] Loss: 8.2465
+24700.4s 884 [Epoch 218/300][Batch 100] Loss: 8.9045
+24735.6s 885 ===> Epoch [218/300] Finished. Avg Loss: 8.2002. Time Elapsed: 24707.2s
+24735.6s 886 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+24775.7s 887 [Epoch 219/300][Batch 50] Loss: 8.2638
+24814.2s 888 [Epoch 219/300][Batch 100] Loss: 7.8974
+24849.3s 889 ===> Epoch [219/300] Finished. Avg Loss: 8.2195. Time Elapsed: 24821.0s
+24849.3s 890 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+24889.2s 891 [Epoch 220/300][Batch 50] Loss: 10.1314
+24927.7s 892 [Epoch 220/300][Batch 100] Loss: 8.7637
+24962.8s 893 ===> Epoch [220/300] Finished. Avg Loss: 8.4371. Time Elapsed: 24934.5s
+24962.8s 894 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25002.5s 895 [Epoch 221/300][Batch 50] Loss: 8.7383
+25041.1s 896 [Epoch 221/300][Batch 100] Loss: 7.3902
+25076.1s 897 ===> Epoch [221/300] Finished. Avg Loss: 8.2985. Time Elapsed: 25047.8s
+25076.1s 898 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25115.9s 899 [Epoch 222/300][Batch 50] Loss: 9.6502
+25154.4s 900 [Epoch 222/300][Batch 100] Loss: 7.3000
+25189.5s 901 ===> Epoch [222/300] Finished. Avg Loss: 8.2291. Time Elapsed: 25161.1s
+25189.5s 902 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25229.3s 903 [Epoch 223/300][Batch 50] Loss: 7.2173
+25267.8s 904 [Epoch 223/300][Batch 100] Loss: 7.7209
+25302.9s 905 ===> Epoch [223/300] Finished. Avg Loss: 7.9958. Time Elapsed: 25274.5s
+25302.9s 906 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25342.6s 907 [Epoch 224/300][Batch 50] Loss: 8.9236
+25381.1s 908 [Epoch 224/300][Batch 100] Loss: 7.6590
+25416.2s 909 ===> Epoch [224/300] Finished. Avg Loss: 8.0455. Time Elapsed: 25387.9s
+25416.2s 910 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25456.0s 911 [Epoch 225/300][Batch 50] Loss: 7.7555
+25494.5s 912 [Epoch 225/300][Batch 100] Loss: 7.1547
+25529.5s 913 ===> Epoch [225/300] Finished. Avg Loss: 7.9565. Time Elapsed: 25501.2s
+25529.5s 914 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25569.3s 915 [Epoch 226/300][Batch 50] Loss: 8.3128
+25607.8s 916 [Epoch 226/300][Batch 100] Loss: 7.8400
+25643.0s 917 ===> Epoch [226/300] Finished. Avg Loss: 8.1128. Time Elapsed: 25614.6s
+25643.0s 918 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25682.5s 919 [Epoch 227/300][Batch 50] Loss: 7.8797
+25720.8s 920 [Epoch 227/300][Batch 100] Loss: 9.9530
+25755.9s 921 ===> Epoch [227/300] Finished. Avg Loss: 8.4901. Time Elapsed: 25727.5s
+25755.9s 922 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25795.6s 923 [Epoch 228/300][Batch 50] Loss: 7.9335
+25834.1s 924 [Epoch 228/300][Batch 100] Loss: 9.9568
+25869.3s 925 ===> Epoch [228/300] Finished. Avg Loss: 8.2728. Time Elapsed: 25841.0s
+25869.3s 926 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+25909.1s 927 [Epoch 229/300][Batch 50] Loss: 8.1784
+25947.6s 928 [Epoch 229/300][Batch 100] Loss: 8.0266
+25982.7s 929 ===> Epoch [229/300] Finished. Avg Loss: 8.1023. Time Elapsed: 25954.4s
+25982.7s 930 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26022.6s 931 [Epoch 230/300][Batch 50] Loss: 7.6662
+26061.2s 932 [Epoch 230/300][Batch 100] Loss: 8.9676
+26096.3s 933 ===> Epoch [230/300] Finished. Avg Loss: 8.4199. Time Elapsed: 26068.0s
+26096.3s 934 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26136.0s 935 [Epoch 231/300][Batch 50] Loss: 7.4149
+26174.4s 936 [Epoch 231/300][Batch 100] Loss: 7.8612
+26209.5s 937 ===> Epoch [231/300] Finished. Avg Loss: 7.8620. Time Elapsed: 26181.1s
+26209.5s 938 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26249.4s 939 [Epoch 232/300][Batch 50] Loss: 8.4872
+26288.0s 940 [Epoch 232/300][Batch 100] Loss: 8.6358
+26323.0s 941 ===> Epoch [232/300] Finished. Avg Loss: 7.9676. Time Elapsed: 26294.6s
+26323.0s 942 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26362.8s 943 [Epoch 233/300][Batch 50] Loss: 7.8714
+26401.5s 944 [Epoch 233/300][Batch 100] Loss: 8.7855
+26436.5s 945 ===> Epoch [233/300] Finished. Avg Loss: 8.0446. Time Elapsed: 26408.1s
+26436.5s 946 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26476.4s 947 [Epoch 234/300][Batch 50] Loss: 8.1894
+26515.0s 948 [Epoch 234/300][Batch 100] Loss: 8.5449
+26550.1s 949 ===> Epoch [234/300] Finished. Avg Loss: 8.1221. Time Elapsed: 26521.7s
+26550.1s 950 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26589.8s 951 [Epoch 235/300][Batch 50] Loss: 10.2008
+26628.4s 952 [Epoch 235/300][Batch 100] Loss: 9.7224
+26663.5s 953 ===> Epoch [235/300] Finished. Avg Loss: 9.2207. Time Elapsed: 26635.1s
+26663.5s 954 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26703.3s 955 [Epoch 236/300][Batch 50] Loss: 8.3793
+26741.9s 956 [Epoch 236/300][Batch 100] Loss: 7.2503
+26777.0s 957 ===> Epoch [236/300] Finished. Avg Loss: 8.2798. Time Elapsed: 26748.6s
+26777.0s 958 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26816.9s 959 [Epoch 237/300][Batch 50] Loss: 6.4924
+26855.4s 960 [Epoch 237/300][Batch 100] Loss: 7.1822
+26890.5s 961 ===> Epoch [237/300] Finished. Avg Loss: 7.9573. Time Elapsed: 26862.1s
+26890.5s 962 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+26930.4s 963 [Epoch 238/300][Batch 50] Loss: 6.9084
+26969.0s 964 [Epoch 238/300][Batch 100] Loss: 6.7138
+27004.0s 965 ===> Epoch [238/300] Finished. Avg Loss: 7.4432. Time Elapsed: 26975.7s
+27004.0s 966 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27043.9s 967 [Epoch 239/300][Batch 50] Loss: 8.5676
+27082.4s 968 [Epoch 239/300][Batch 100] Loss: 8.2097
+27117.3s 969 ===> Epoch [239/300] Finished. Avg Loss: 7.5191. Time Elapsed: 27088.9s
+27117.3s 970 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27157.1s 971 [Epoch 240/300][Batch 50] Loss: 7.2579
+27195.5s 972 [Epoch 240/300][Batch 100] Loss: 8.4099
+27230.5s 973 ===> Epoch [240/300] Finished. Avg Loss: 7.4809. Time Elapsed: 27202.2s
+27230.5s 974 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27270.5s 975 [Epoch 241/300][Batch 50] Loss: 7.2918
+27309.0s 976 [Epoch 241/300][Batch 100] Loss: 8.0726
+27344.0s 977 ===> Epoch [241/300] Finished. Avg Loss: 7.6006. Time Elapsed: 27315.7s
+27344.0s 978 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27383.8s 979 [Epoch 242/300][Batch 50] Loss: 8.3908
+27422.3s 980 [Epoch 242/300][Batch 100] Loss: 7.3052
+27457.4s 981 ===> Epoch [242/300] Finished. Avg Loss: 7.7965. Time Elapsed: 27429.0s
+27457.4s 982 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27497.0s 983 [Epoch 243/300][Batch 50] Loss: 6.2399
+27535.3s 984 [Epoch 243/300][Batch 100] Loss: 7.3475
+27570.3s 985 ===> Epoch [243/300] Finished. Avg Loss: 7.7341. Time Elapsed: 27542.0s
+27570.3s 986 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27610.0s 987 [Epoch 244/300][Batch 50] Loss: 7.0804
+27648.5s 988 [Epoch 244/300][Batch 100] Loss: 6.8358
+27683.6s 989 ===> Epoch [244/300] Finished. Avg Loss: 7.6617. Time Elapsed: 27655.3s
+27683.6s 990 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27724.3s 991 [Epoch 245/300][Batch 50] Loss: 8.4493
+27762.8s 992 [Epoch 245/300][Batch 100] Loss: 8.1043
+27797.9s 993 ===> Epoch [245/300] Finished. Avg Loss: 8.0871. Time Elapsed: 27769.6s
+27797.9s 994 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27837.6s 995 [Epoch 246/300][Batch 50] Loss: 7.3439
+27876.1s 996 [Epoch 246/300][Batch 100] Loss: 7.4414
+27911.2s 997 ===> Epoch [246/300] Finished. Avg Loss: 7.2933. Time Elapsed: 27882.8s
+27911.2s 998 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+27951.0s 999 [Epoch 247/300][Batch 50] Loss: 8.5061
+27989.5s 1000 [Epoch 247/300][Batch 100] Loss: 8.0038
+28024.6s 1001 ===> Epoch [247/300] Finished. Avg Loss: 7.8360. Time Elapsed: 27996.2s
+28024.6s 1002 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28064.3s 1003 [Epoch 248/300][Batch 50] Loss: 6.2748
+28102.8s 1004 [Epoch 248/300][Batch 100] Loss: 7.1350
+28137.9s 1005 ===> Epoch [248/300] Finished. Avg Loss: 7.3456. Time Elapsed: 28109.6s
+28137.9s 1006 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28177.7s 1007 [Epoch 249/300][Batch 50] Loss: 7.5292
+28216.2s 1008 [Epoch 249/300][Batch 100] Loss: 7.7905
+28251.3s 1009 ===> Epoch [249/300] Finished. Avg Loss: 7.6751. Time Elapsed: 28223.0s
+28251.3s 1010 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28291.1s 1011 [Epoch 250/300][Batch 50] Loss: 7.2743
+28329.6s 1012 [Epoch 250/300][Batch 100] Loss: 7.9344
+28364.7s 1013 ===> Epoch [250/300] Finished. Avg Loss: 7.8204. Time Elapsed: 28336.4s
+28364.7s 1014 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28404.5s 1015 [Epoch 251/300][Batch 50] Loss: 7.5183
+28443.0s 1016 [Epoch 251/300][Batch 100] Loss: 7.0541
+28478.1s 1017 ===> Epoch [251/300] Finished. Avg Loss: 7.4495. Time Elapsed: 28449.7s
+28478.1s 1018 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28517.9s 1019 [Epoch 252/300][Batch 50] Loss: 8.2945
+28556.4s 1020 [Epoch 252/300][Batch 100] Loss: 8.9810
+28591.5s 1021 ===> Epoch [252/300] Finished. Avg Loss: 7.2111. Time Elapsed: 28563.1s
+28591.5s 1022 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28631.2s 1023 [Epoch 253/300][Batch 50] Loss: 6.4445
+28669.8s 1024 [Epoch 253/300][Batch 100] Loss: 6.0602
+28704.9s 1025 ===> Epoch [253/300] Finished. Avg Loss: 7.3091. Time Elapsed: 28676.5s
+28704.9s 1026 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28744.7s 1027 [Epoch 254/300][Batch 50] Loss: 7.6991
+28783.3s 1028 [Epoch 254/300][Batch 100] Loss: 7.2258
+28818.4s 1029 ===> Epoch [254/300] Finished. Avg Loss: 7.3370. Time Elapsed: 28790.0s
+28818.4s 1030 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28858.2s 1031 [Epoch 255/300][Batch 50] Loss: 7.8464
+28896.7s 1032 [Epoch 255/300][Batch 100] Loss: 6.4188
+28931.8s 1033 ===> Epoch [255/300] Finished. Avg Loss: 7.5715. Time Elapsed: 28903.4s
+28931.8s 1034 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+28971.5s 1035 [Epoch 256/300][Batch 50] Loss: 6.9494
+29010.0s 1036 [Epoch 256/300][Batch 100] Loss: 7.1476
+29045.0s 1037 ===> Epoch [256/300] Finished. Avg Loss: 7.3746. Time Elapsed: 29016.7s
+29045.0s 1038 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29084.8s 1039 [Epoch 257/300][Batch 50] Loss: 6.7475
+29123.3s 1040 [Epoch 257/300][Batch 100] Loss: 7.0628
+29158.4s 1041 ===> Epoch [257/300] Finished. Avg Loss: 7.3641. Time Elapsed: 29130.0s
+29158.4s 1042 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29198.1s 1043 [Epoch 258/300][Batch 50] Loss: 6.3899
+29236.6s 1044 [Epoch 258/300][Batch 100] Loss: 6.9872
+29271.7s 1045 ===> Epoch [258/300] Finished. Avg Loss: 7.4105. Time Elapsed: 29243.4s
+29271.7s 1046 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29311.5s 1047 [Epoch 259/300][Batch 50] Loss: 7.0247
+29350.0s 1048 [Epoch 259/300][Batch 100] Loss: 7.8665
+29385.1s 1049 ===> Epoch [259/300] Finished. Avg Loss: 7.2801. Time Elapsed: 29356.7s
+29385.1s 1050 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29424.9s 1051 [Epoch 260/300][Batch 50] Loss: 9.1167
+29463.4s 1052 [Epoch 260/300][Batch 100] Loss: 7.2707
+29498.6s 1053 ===> Epoch [260/300] Finished. Avg Loss: 7.2231. Time Elapsed: 29470.2s
+29498.6s 1054 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29538.4s 1055 [Epoch 261/300][Batch 50] Loss: 7.3084
+29576.9s 1056 [Epoch 261/300][Batch 100] Loss: 6.3875
+29612.0s 1057 ===> Epoch [261/300] Finished. Avg Loss: 6.9505. Time Elapsed: 29583.6s
+29612.0s 1058 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29651.5s 1059 [Epoch 262/300][Batch 50] Loss: 7.8280
+29690.1s 1060 [Epoch 262/300][Batch 100] Loss: 7.9481
+29725.1s 1061 ===> Epoch [262/300] Finished. Avg Loss: 7.4675. Time Elapsed: 29696.8s
+29725.1s 1062 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29764.9s 1063 [Epoch 263/300][Batch 50] Loss: 7.4212
+29803.5s 1064 [Epoch 263/300][Batch 100] Loss: 7.0090
+29838.6s 1065 ===> Epoch [263/300] Finished. Avg Loss: 7.2491. Time Elapsed: 29810.2s
+29838.6s 1066 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29878.3s 1067 [Epoch 264/300][Batch 50] Loss: 7.1668
+29916.8s 1068 [Epoch 264/300][Batch 100] Loss: 8.7940
+29951.9s 1069 ===> Epoch [264/300] Finished. Avg Loss: 7.3654. Time Elapsed: 29923.6s
+29951.9s 1070 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+29991.7s 1071 [Epoch 265/300][Batch 50] Loss: 7.3547
+30030.2s 1072 [Epoch 265/300][Batch 100] Loss: 7.1423
+30067.3s 1073 ===> Epoch [265/300] Finished. Avg Loss: 7.2043. Time Elapsed: 30038.9s
+30067.3s 1074 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+30113.1s 1075 [Epoch 266/300][Batch 50] Loss: 7.2714
+30151.7s 1076 [Epoch 266/300][Batch 100] Loss: 7.4452
+30186.7s 1077 ===> Epoch [266/300] Finished. Avg Loss: 6.9233. Time Elapsed: 30158.4s
+30186.7s 1078 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+30226.5s 1079 [Epoch 267/300][Batch 50] Loss: 6.6902
+30265.2s 1080 [Epoch 267/300][Batch 100] Loss: 7.4269
+30300.1s 1081 ===> Epoch [267/300] Finished. Avg Loss: 7.2723. Time Elapsed: 30271.7s
+30300.1s 1082 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+30339.9s 1083 [Epoch 268/300][Batch 50] Loss: 7.5767
+30378.5s 1084 [Epoch 268/300][Batch 100] Loss: 7.3562
+30413.5s 1085 ===> Epoch [268/300] Finished. Avg Loss: 6.9443. Time Elapsed: 30385.1s
+30413.5s 1086 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+30453.1s 1087 [Epoch 269/300][Batch 50] Loss: 6.8878
+30491.6s 1088 [Epoch 269/300][Batch 100] Loss: 7.7398
+30526.7s 1089 ===> Epoch [269/300] Finished. Avg Loss: 6.9237. Time Elapsed: 30498.4s
+30526.7s 1090 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+30566.5s 1091 [Epoch 270/300][Batch 50] Loss: 6.3191
+30604.9s 1092 [Epoch 270/300][Batch 100] Loss: 7.3714
+30639.9s 1093 ===> Epoch [270/300] Finished. Avg Loss: 7.0499. Time Elapsed: 30611.5s
+30639.9s 1094 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+30679.6s 1095 [Epoch 271/300][Batch 50] Loss: 5.5929
+30718.1s 1096 [Epoch 271/300][Batch 100] Loss: 6.7325
+30753.2s 1097 ===> Epoch [271/300] Finished. Avg Loss: 7.2476. Time Elapsed: 30724.9s
+30753.2s 1098 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+30793.0s 1099 [Epoch 272/300][Batch 50] Loss: 9.7108
+30831.4s 1100 [Epoch 272/300][Batch 100] Loss: 7.4384
+30866.4s 1101 ===> Epoch [272/300] Finished. Avg Loss: 7.2382. Time Elapsed: 30838.1s
+30866.4s 1102 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+30906.6s 1103 [Epoch 273/300][Batch 50] Loss: 6.2237
+30945.1s 1104 [Epoch 273/300][Batch 100] Loss: 6.7811
+30980.0s 1105 ===> Epoch [273/300] Finished. Avg Loss: 7.1043. Time Elapsed: 30951.7s
+30980.0s 1106 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31020.1s 1107 [Epoch 274/300][Batch 50] Loss: 7.0072
+31058.7s 1108 [Epoch 274/300][Batch 100] Loss: 5.7729
+31093.8s 1109 ===> Epoch [274/300] Finished. Avg Loss: 6.8028. Time Elapsed: 31065.5s
+31093.8s 1110 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31133.6s 1111 [Epoch 275/300][Batch 50] Loss: 6.8839
+31172.0s 1112 [Epoch 275/300][Batch 100] Loss: 7.6508
+31207.0s 1113 ===> Epoch [275/300] Finished. Avg Loss: 6.8172. Time Elapsed: 31178.7s
+31207.0s 1114 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31246.8s 1115 [Epoch 276/300][Batch 50] Loss: 6.2702
+31285.3s 1116 [Epoch 276/300][Batch 100] Loss: 6.7738
+31321.6s 1117 ===> Epoch [276/300] Finished. Avg Loss: 7.0011. Time Elapsed: 31293.2s
+31321.6s 1118 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31361.4s 1119 [Epoch 277/300][Batch 50] Loss: 6.8996
+31399.9s 1120 [Epoch 277/300][Batch 100] Loss: 7.0561
+31435.0s 1121 ===> Epoch [277/300] Finished. Avg Loss: 7.0533. Time Elapsed: 31406.7s
+31435.0s 1122 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31475.3s 1123 [Epoch 278/300][Batch 50] Loss: 7.4448
+31513.9s 1124 [Epoch 278/300][Batch 100] Loss: 6.3436
+31549.0s 1125 ===> Epoch [278/300] Finished. Avg Loss: 7.1440. Time Elapsed: 31520.6s
+31549.0s 1126 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31588.7s 1127 [Epoch 279/300][Batch 50] Loss: 5.6667
+31627.2s 1128 [Epoch 279/300][Batch 100] Loss: 6.5518
+31662.3s 1129 ===> Epoch [279/300] Finished. Avg Loss: 6.8109. Time Elapsed: 31634.0s
+31662.3s 1130 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31702.1s 1131 [Epoch 280/300][Batch 50] Loss: 6.1368
+31740.6s 1132 [Epoch 280/300][Batch 100] Loss: 7.5104
+31775.7s 1133 ===> Epoch [280/300] Finished. Avg Loss: 6.8925. Time Elapsed: 31747.4s
+31775.7s 1134 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31815.5s 1135 [Epoch 281/300][Batch 50] Loss: 8.0650
+31854.2s 1136 [Epoch 281/300][Batch 100] Loss: 8.3614
+31889.3s 1137 ===> Epoch [281/300] Finished. Avg Loss: 6.9847. Time Elapsed: 31860.9s
+31889.3s 1138 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+31929.0s 1139 [Epoch 282/300][Batch 50] Loss: 7.1468
+31967.5s 1140 [Epoch 282/300][Batch 100] Loss: 5.9522
+32002.6s 1141 ===> Epoch [282/300] Finished. Avg Loss: 6.8206. Time Elapsed: 31974.2s
+32002.6s 1142 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32042.4s 1143 [Epoch 283/300][Batch 50] Loss: 6.2036
+32080.9s 1144 [Epoch 283/300][Batch 100] Loss: 7.6130
+32116.0s 1145 ===> Epoch [283/300] Finished. Avg Loss: 6.7607. Time Elapsed: 32087.7s
+32116.0s 1146 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32155.8s 1147 [Epoch 284/300][Batch 50] Loss: 6.5408
+32194.4s 1148 [Epoch 284/300][Batch 100] Loss: 5.8129
+32229.5s 1149 ===> Epoch [284/300] Finished. Avg Loss: 6.6897. Time Elapsed: 32201.1s
+32229.5s 1150 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32269.2s 1151 [Epoch 285/300][Batch 50] Loss: 7.2985
+32307.7s 1152 [Epoch 285/300][Batch 100] Loss: 7.5100
+32342.8s 1153 ===> Epoch [285/300] Finished. Avg Loss: 6.7685. Time Elapsed: 32314.5s
+32342.8s 1154 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32382.6s 1155 [Epoch 286/300][Batch 50] Loss: 7.1650
+32421.1s 1156 [Epoch 286/300][Batch 100] Loss: 6.6255
+32456.2s 1157 ===> Epoch [286/300] Finished. Avg Loss: 6.8931. Time Elapsed: 32427.8s
+32456.2s 1158 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32495.9s 1159 [Epoch 287/300][Batch 50] Loss: 6.0237
+32534.4s 1160 [Epoch 287/300][Batch 100] Loss: 7.3244
+32569.5s 1161 ===> Epoch [287/300] Finished. Avg Loss: 6.9052. Time Elapsed: 32541.1s
+32569.5s 1162 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32609.2s 1163 [Epoch 288/300][Batch 50] Loss: 7.5175
+32647.7s 1164 [Epoch 288/300][Batch 100] Loss: 7.4258
+32682.8s 1165 ===> Epoch [288/300] Finished. Avg Loss: 6.8093. Time Elapsed: 32654.5s
+32682.8s 1166 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32722.6s 1167 [Epoch 289/300][Batch 50] Loss: 6.6905
+32761.0s 1168 [Epoch 289/300][Batch 100] Loss: 6.0484
+32796.2s 1169 ===> Epoch [289/300] Finished. Avg Loss: 6.6965. Time Elapsed: 32767.8s
+32796.2s 1170 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32835.9s 1171 [Epoch 290/300][Batch 50] Loss: 6.9680
+32874.5s 1172 [Epoch 290/300][Batch 100] Loss: 5.6562
+32909.6s 1173 ===> Epoch [290/300] Finished. Avg Loss: 6.5366. Time Elapsed: 32881.2s
+32909.6s 1174 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+32949.4s 1175 [Epoch 291/300][Batch 50] Loss: 6.2259
+32987.9s 1176 [Epoch 291/300][Batch 100] Loss: 6.7771
+33023.0s 1177 ===> Epoch [291/300] Finished. Avg Loss: 6.6372. Time Elapsed: 32994.7s
+33023.0s 1178 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33062.8s 1179 [Epoch 292/300][Batch 50] Loss: 6.4493
+33101.3s 1180 [Epoch 292/300][Batch 100] Loss: 5.9515
+33136.4s 1181 ===> Epoch [292/300] Finished. Avg Loss: 6.5935. Time Elapsed: 33108.0s
+33136.4s 1182 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33176.1s 1183 [Epoch 293/300][Batch 50] Loss: 6.7521
+33214.6s 1184 [Epoch 293/300][Batch 100] Loss: 5.5148
+33249.7s 1185 ===> Epoch [293/300] Finished. Avg Loss: 6.5164. Time Elapsed: 33221.4s
+33249.7s 1186 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33289.5s 1187 [Epoch 294/300][Batch 50] Loss: 5.5960
+33328.0s 1188 [Epoch 294/300][Batch 100] Loss: 6.3843
+33363.1s 1189 ===> Epoch [294/300] Finished. Avg Loss: 6.3435. Time Elapsed: 33334.8s
+33363.1s 1190 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33403.0s 1191 [Epoch 295/300][Batch 50] Loss: 6.7982
+33441.5s 1192 [Epoch 295/300][Batch 100] Loss: 7.1685
+33476.6s 1193 ===> Epoch [295/300] Finished. Avg Loss: 6.6529. Time Elapsed: 33448.3s
+33476.6s 1194 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33517.3s 1195 [Epoch 296/300][Batch 50] Loss: 6.8281
+33555.8s 1196 [Epoch 296/300][Batch 100] Loss: 6.6864
+33590.9s 1197 ===> Epoch [296/300] Finished. Avg Loss: 6.8717. Time Elapsed: 33562.6s
+33590.9s 1198 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33630.8s 1199 [Epoch 297/300][Batch 50] Loss: 7.2342
+33669.3s 1200 [Epoch 297/300][Batch 100] Loss: 6.4408
+33704.4s 1201 ===> Epoch [297/300] Finished. Avg Loss: 7.1639. Time Elapsed: 33676.0s
+33704.4s 1202 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33744.2s 1203 [Epoch 298/300][Batch 50] Loss: 7.3007
+33782.7s 1204 [Epoch 298/300][Batch 100] Loss: 5.6308
+33817.8s 1205 ===> Epoch [298/300] Finished. Avg Loss: 6.7365. Time Elapsed: 33789.5s
+33817.8s 1206 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33857.6s 1207 [Epoch 299/300][Batch 50] Loss: 6.6992
+33896.2s 1208 [Epoch 299/300][Batch 100] Loss: 6.0132
+33931.3s 1209 ===> Epoch [299/300] Finished. Avg Loss: 6.7072. Time Elapsed: 33903.0s
+33931.3s 1210 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+33971.1s 1211 [Epoch 300/300][Batch 50] Loss: 6.4372
+34009.7s 1212 [Epoch 300/300][Batch 100] Loss: 6.5069
+34044.7s 1213 ===> Epoch [300/300] Finished. Avg Loss: 6.4703. Time Elapsed: 34016.4s
+34044.7s 1214 Checkpoint saved to /kaggle/working/darknet_strawberry_checkpoint.pth
+34044.7s 1215 >>> Training Complete!
+34050.8s 1216 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+34050.8s 1217 cells[i][c] = re.sub('\\\\\|', '|', cell)
+34051.0s 1218 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+34051.0s 1219 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+34051.7s 1220 /usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=["remove_papermill_header.RemovePapermillHeader"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.
+34051.7s 1221 warn(
+34051.8s 1222 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+34052.2s 1223 [NbConvertApp] Writing 103108 bytes to __notebook__.ipynb
+34054.7s 1224 /usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=["nbconvert.preprocessors.ExtractOutputPreprocessor"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.
+34054.7s 1225 warn(
+34054.7s 1226 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+34055.7s 1227 [NbConvertApp] Writing 424374 bytes to __results__.html
