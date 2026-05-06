@@ -29,15 +29,18 @@ export function useCamera(constraints = { video: { width: { ideal: 800 }, height
   };
 
   const initCamera = async (onSuccess = () => {}, onLog = () => {}) => {
+    // 1. 如果已有尝试在进行，直接忽略（防止并发调用）
     if (cameraAttemptInFlight) return;
-    cameraAttemptInFlight = true;
-    isCameraLoading.value = true;
-    cameraErrorMsg.value = '';
-
+    
+    // 2. 清除之前的定时器，重置状态
     if (cameraRetryTimeoutId) {
       clearTimeout(cameraRetryTimeoutId);
       cameraRetryTimeoutId = null;
     }
+
+    cameraAttemptInFlight = true;
+    isCameraLoading.value = true;
+    cameraErrorMsg.value = '';
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -51,7 +54,17 @@ export function useCamera(constraints = { video: { width: { ideal: 800 }, height
       onLog('摄像头已连接');
     } catch (err) {
       isStreamActive.value = false;
-      cameraErrorMsg.value = err instanceof Error ? err.message : String(err);
+      const errorName = err instanceof Error ? err.name : '';
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      cameraErrorMsg.value = errorMsg;
+
+      // 针对不同错误类型给出更具体的日志（但保持重试逻辑）
+      let logPrefix = '摄像头连接失败';
+      if (errorName === 'NotAllowedError' || errorName === 'PermissionDeniedError') {
+        logPrefix = '摄像头访问被拒绝（请检查浏览器权限）';
+      } else if (errorName === 'NotReadableError' || errorName === 'TrackStartError') {
+        logPrefix = '摄像头可能被其他应用占用';
+      }
 
       if (cameraRetryCount.value < cameraRetryMax) {
         const delayMs = Math.min(
@@ -59,7 +72,7 @@ export function useCamera(constraints = { video: { width: { ideal: 800 }, height
           cameraRetryBaseDelayMs * Math.pow(2, cameraRetryCount.value)
         );
         cameraRetryCount.value += 1;
-        onLog(`摄像头连接失败，${Math.round(delayMs / 1000)}s 后重试 (${cameraRetryCount.value}/${cameraRetryMax})`);
+        onLog(`${logPrefix}，${Math.round(delayMs / 1000)}s 后重试 (${cameraRetryCount.value}/${cameraRetryMax})`);
         
         cameraRetryTimeoutId = setTimeout(() => {
           cameraAttemptInFlight = false;
@@ -69,12 +82,18 @@ export function useCamera(constraints = { video: { width: { ideal: 800 }, height
       }
 
       isCameraLoading.value = false;
-      onLog('摄像头连接失败，请检查权限或设备占用');
+      onLog('摄像头连接失败，建议手动刷新页面或切换至“图片分析”模式');
     } finally {
+      // 只有在没有设置重试定时器的情况下，才标记尝试结束
       if (!cameraRetryTimeoutId) {
         cameraAttemptInFlight = false;
       }
     }
+  };
+
+  const manualInitCamera = (onSuccess, onLog) => {
+    cameraRetryCount.value = 0; // 手动重置计数
+    initCamera(onSuccess, onLog);
   };
 
   onUnmounted(() => {
@@ -86,7 +105,7 @@ export function useCamera(constraints = { video: { width: { ideal: 800 }, height
     isStreamActive,
     isCameraLoading,
     cameraErrorMsg,
-    initCamera,
+    initCamera: manualInitCamera,
     stopStream
   };
 }
