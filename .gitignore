@@ -5,8 +5,8 @@ Straw6D_Upload/
 *.7z
 *.rar
 
-# 模型权重（通常较大且 GitHub 有 100MB 限制）
-*.pth
+# 模型权重（使用 Git LFS 管理，取消 ignore）
+# *.pth
 *.h5
 
 # 前端依赖与构建

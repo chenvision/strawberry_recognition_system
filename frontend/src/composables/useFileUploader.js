@@ -55,13 +55,17 @@ export function useFileUploader() {
     analysisResult.value = { image: '', targets: [] };
   };
 
-  const fetchDemoFrames = async (limit = 60, onStatusChange = () => {}) => {
+  const fetchDemoFrames = async (limit = 60, onStatusChange = () => {}, onLog = () => {}) => {
     try {
       const frames = await apiFetchDemoFrames(limit);
       demoFrames.value = frames;
       onStatusChange(true);
-    } catch {
-      onStatusChange(false);
+    } catch (err) {
+      if (!isRequestCanceled(err)) {
+        const message = err instanceof Error ? err.message : '获取演示帧失败';
+        onLog(`后端服务异常: ${message}`);
+        onStatusChange(false);
+      }
     }
   };
 

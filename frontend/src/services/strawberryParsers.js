@@ -35,6 +35,15 @@ function assertDimensions(value, path) {
   };
 }
 
+function assertOrientation(value, path) {
+  if (!isPlainObject(value)) throw new Error(`Invalid ${path}`);
+  return {
+    roll: assertNumber(value.roll, `${path}.roll`),
+    pitch: assertNumber(value.pitch, `${path}.pitch`),
+    yaw: assertNumber(value.yaw, `${path}.yaw`)
+  };
+}
+
 function parseTarget(value, path) {
   if (!isPlainObject(value)) throw new Error(`Invalid ${path}`);
 
@@ -54,6 +63,7 @@ function parseTarget(value, path) {
     points_2d: parsedPoints,
     axis_2d: axis2d,
     position: assertPosition(value.position, `${path}.position`),
+    orientation: value.orientation ? assertOrientation(value.orientation, `${path}.orientation`) : undefined,
     dimensions: assertDimensions(value.dimensions, `${path}.dimensions`)
   };
 }

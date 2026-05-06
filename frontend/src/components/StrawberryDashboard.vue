@@ -84,7 +84,9 @@
               <div class="hud-overlay" v-if="isStreamActive" @click="handleViewportClick"></div>
             </div>
             <div class="view-controls">
-              <span class="fps-counter" :class="{ 'text-error': !isStreamActive }">{{ isStreamActive ? (isPredicting ? 'RUNNING' : 'WAITING') : 'OFFLINE' }}</span>
+              <span class="fps-counter" :class="{ 'text-error': !isStreamActive }">
+                {{ isStreamActive ? (isPredicting ? `RUNNING (${processingTime.toFixed(0)}ms)` : 'WAITING') : 'OFFLINE' }}
+              </span>
               <span class="resolution">{{ isStreamActive ? '800x600' : 'N/A' }}</span>
             </div>
           </div>
@@ -186,6 +188,21 @@
               <div class="val">{{ selectedTarget.position.z.toFixed(1) }}</div>
             </div>
           </div>
+          <!-- 姿态参数 -->
+          <div class="detail-grid orientation" v-if="selectedTarget.orientation">
+            <div class="detail-item">
+              <label>Roll (°)</label>
+              <div class="val">{{ selectedTarget.orientation.roll.toFixed(1) }}</div>
+            </div>
+            <div class="detail-item">
+              <label>Pitch (°)</label>
+              <div class="val">{{ selectedTarget.orientation.pitch.toFixed(1) }}</div>
+            </div>
+            <div class="detail-item">
+              <label>Yaw (°)</label>
+              <div class="val">{{ selectedTarget.orientation.yaw.toFixed(1) }}</div>
+            </div>
+          </div>
           <div class="detail-grid dims">
             <div class="detail-item">
               <label>长度</label>
@@ -220,7 +237,7 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { getApiBase } from '@/services/apiBase';
 import { health as apiHealth } from '@/services/strawberryApi';
 import { useCamera } from '@/composables/useCamera';
-import { useInferenceLoop } from '@/composables/useInferenceLoop';
+import { useWebSocketInference } from '@/composables/useWebSocketInference';
 import { useFileUploader } from '@/composables/useFileUploader';
 
 export default {
@@ -360,8 +377,10 @@ export default {
       try {
         await apiHealth();
         setBackendOnline(true);
-      } catch {
+      } catch (err) {
         setBackendOnline(false);
+        const msg = err instanceof Error ? err.message : '未知错误';
+        addLog(`后端连接失败: ${msg}`);
       }
     };
 
@@ -371,8 +390,8 @@ export default {
     } = useCamera();
 
     const { 
-      targets, isPredicting, startInference
-    } = useInferenceLoop(videoElement);
+      targets, isPredicting, startInference, stopInference, processingTime, isConnected
+    } = useWebSocketInference(videoElement);
 
     const {
       uploadLoading, analysisResult, analyzeFile, clearUploadResult,
@@ -381,6 +400,9 @@ export default {
 
     // --- Event Handlers ---
     const switchTab = (key) => {
+      if (activeTab.value === 'camera' && key !== 'camera') {
+        stopInference();
+      }
       activeTab.value = key;
     };
 
@@ -456,7 +478,7 @@ export default {
     onMounted(() => {
       addLog('系统就绪');
       checkBackend();
-      fetchDemoFrames(60, setBackendOnline);
+      fetchDemoFrames(500, setBackendOnline, addLog);
     });
 
     return {
@@ -467,7 +489,7 @@ export default {
       // Camera
       videoElement, isStreamActive, isCameraLoading, handleInitCamera,
       // Inference
-      targets, isPredicting,
+      targets, isPredicting, processingTime, isConnected,
       // Upload/Demo
       uploadLoading, analysisResult, demoFrames, demoResult, demoLoadingFrame,
       handleFileUpload, handleDrop, handleClearResult, triggerUpload, 
@@ -587,7 +609,15 @@ export default {
   overflow: hidden;
 }
 
-.view-panel { flex: 1; display: flex; flex-direction: column; position: relative; }
+.view-panel { 
+  flex: 1; 
+  display: flex; 
+  flex-direction: column; 
+  position: relative; 
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
 
 .viewport {
   flex: 1;
@@ -596,6 +626,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 0;
 }
 
 .source-feed { width: 100%; height: 100%; object-fit: contain; display: block; }
@@ -715,7 +746,14 @@ export default {
 .log-entry .msg { color: #475569; }
 
 /* ===== Gallery ===== */
-.gallery-wrapper { padding: 16px; overflow-y: auto; }
+.gallery-wrapper { 
+  flex: 1; 
+  min-height: 0; 
+  max-height: calc(100vh - 150px); /* 关键：强制设置最大高度 */
+  padding: 16px; 
+  overflow-y: scroll !important; /* 强制显示滚动条轨迹 */
+  background: #f8fafc;
+}
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
 .gallery-thumb { aspect-ratio: 1; border-radius: 8px; overflow: hidden; cursor: pointer; position: relative; border: 1px solid #e2e8f0; }
 .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
